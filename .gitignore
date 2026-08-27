@@ -1,0 +1,26 @@
+.DS_Store
+
+# runtime/generated job state — not source
+video-factory/building/*
+video-factory/queue/*
+video-factory/work/*
+video-factory/done/*
+video-factory/failed/*
+video-factory/drafts/*
+video-factory/output/*
+video-factory/thumbs/*
+video-factory/state/*
+!video-factory/building/.gitkeep
+!video-factory/queue/.gitkeep
+!video-factory/work/.gitkeep
+!video-factory/done/.gitkeep
+!video-factory/failed/.gitkeep
+!video-factory/drafts/.gitkeep
+!video-factory/output/.gitkeep
+!video-factory/thumbs/.gitkeep
+!video-factory/state/.gitkeep
+
+# rendered video output anywhere
+*.mp4
+
+node_modules/

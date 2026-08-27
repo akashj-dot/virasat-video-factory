@@ -1,0 +1,37 @@
+{
+  "updatedAt": 1787711292246,
+  "paused": false,
+  "concurrency": 3,
+  "estRenderS": 200,
+  "counts": {
+    "queued": 0,
+    "voicing": 0,
+    "voiced": 0,
+    "rendering": 0,
+    "done": 1,
+    "failed": 0
+  },
+  "jobs": [
+    {
+      "id": "unclaimed-assets-india",
+      "title": "India's Unclaimed Money Problem",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Crores of rupees sit unclaimed in Indian banks, insurance, EPF and shares because nobody came back for them — and there are free official portals to check and claim yours\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: general Indian audience, financially literate but not expert\nlength: 60s\nangle: listicle\n---\n\n## Intent\n\nA documentary/informative explainer on India's unclaimed financial assets problem, told entirely through numbers. Walks through the major categories — bank deposits, insurance, EPF, shares & dividends, mutual funds — each landing its own official statistic, building to a \"check if it's yours\" call to action. Factual, narrator-led, not sensational. First video for the Virasat Video Factory channel.\n\n## Customizations\n\n- Burned-in English subtitles are mandatory (not optional) — required regardless of any default caption setting.\n- Visual sourcing: this is a faceless/invented-visuals piece (typography, stat call-outs, data-viz, diagrams). No stock footage or photography needed for the core numbers. If any real imagery is used, prefer public-domain or government-licensed sources (",
+      "format": null,
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/unclaimed-assets-india",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1787670128372,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/unclaimed-assets-india.mp4",
+      "renderSeconds": 87,
+      "renderStartedAt": 1787711205467,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/unclaimed-assets-india/renders/unclaimed-assets-india.mp4",
+      "finishedAt": 1787711292245
+    }
+  ]
+}

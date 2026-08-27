@@ -1,0 +1,180 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Space Grotesk";
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+      src: url("assets/fonts/SpaceGrotesk-Medium.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Merriweather";
+      font-weight: 700;
+      font-style: normal;
+      font-display: block;
+      src: url("assets/fonts/Merriweather-Bold.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Space Mono";
+      font-weight: 700;
+      font-style: normal;
+      font-display: block;
+      src: url("assets/fonts/SpaceMono-Bold.woff2") format("woff2");
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      background: __BG__;
+      font-family:
+        "Space Grotesk",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+    }
+
+    .outro-glow {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 90cqw;
+      height: 90cqw;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        __PRIMARY_GLOW_STRONG__ 0%,
+        __PRIMARY_GLOW_SOFT__ 42%,
+        __PRIMARY_GLOW_NONE__ 72%
+      );
+      opacity: 0;
+      z-index: 0;
+    }
+
+    .outro-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 82cqw;
+    }
+
+    .outro-logo {
+      width: 34cqw;
+      height: auto;
+      opacity: 0;
+    }
+
+    .outro-headline {
+      margin-top: 6.5cqh;
+      font-family: "Merriweather", Georgia, serif;
+      font-weight: 700;
+      font-size: 6.4cqw;
+      line-height: 1.28;
+      color: __TEXT__;
+      opacity: 0;
+    }
+
+    .outro-subtext {
+      margin-top: 2.4cqh;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 500;
+      font-size: 4cqw;
+      line-height: 1.3;
+      color: __TEXT_MUTED__;
+      opacity: 0;
+    }
+
+    .outro-cta {
+      margin-top: 5.5cqh;
+      display: inline-flex;
+      align-items: center;
+      padding: 2.1cqh 5.2cqw;
+      border-radius: 999px;
+      background: __PRIMARY__;
+      color: __BG__;
+      font-family: "Space Mono", monospace;
+      font-weight: 700;
+      font-size: 3cqw;
+      letter-spacing: 0.06em;
+      text-transform: lowercase;
+      opacity: 0;
+    }
+  </style>
+
+  <div
+    data-hf-id="hf-outro-root"
+    id="root"
+    data-composition-id="__COMPOSITION_ID__"
+    data-width="__WIDTH__"
+    data-height="__HEIGHT__"
+    data-duration="__DURATION__"
+  >
+    <div data-hf-id="hf-outro-glow" class="outro-glow" id="outro-glow"></div>
+
+    <div data-hf-id="hf-outro-center" class="outro-center">
+      <img data-hf-id="hf-outro-logo" class="outro-logo" id="outro-logo" src="__LOGO_REL__" alt="Virasat" />
+      <div data-hf-id="hf-outro-headline" class="outro-headline" id="outro-headline">
+        We&rsquo;re building the fix for this.
+      </div>
+      <div data-hf-id="hf-outro-subtext" class="outro-subtext" id="outro-subtext">
+        Be the first inside.
+      </div>
+      <div data-hf-id="hf-outro-cta" class="outro-cta" id="outro-cta">
+        link in bio to grab early access
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo(
+      "#outro-glow",
+      { opacity: 0, scale: 0.85 },
+      { opacity: 0.3, scale: 1, duration: 1.0, ease: "power2.out" },
+      0,
+    );
+
+    tl.fromTo(
+      "#outro-logo",
+      { opacity: 0, y: 16, scale: 0.92 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power2.out" },
+      0.15,
+    );
+
+    tl.fromTo(
+      "#outro-headline",
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+      0.55,
+    );
+
+    tl.fromTo(
+      "#outro-subtext",
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+      0.85,
+    );
+
+    tl.fromTo(
+      "#outro-cta",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" },
+      1.15,
+    );
+
+    window.__timelines["__COMPOSITION_ID__"] = tl;
+  </script>
+</template>
