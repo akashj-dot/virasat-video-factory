@@ -2,6 +2,19 @@
 
 These files are the **default design tokens for every Virasat video** going forward — no more picking a generic HyperFrames preset or improvising colors per-video. They're derived directly from `virasat-brand-source.html` (the team's Canva-exported brand kit page), so any color/font change should be made there first, then re-derived here.
 
+## Every build: run this one command
+
+```bash
+node video-factory/brand/finalize-brand.mjs <projectDir>
+```
+
+Applies the logo watermark AND the closing outro card in one call (runs
+`add-logo-overlay.mjs` and `add-outro-card.mjs` for you, in the right order,
+including re-running the logo pass so the newly-added outro frame gets
+watermarked too). This step is **mandatory on every project** — see the root
+`CLAUDE.md`. Run it once, any time after Step 5 (frame build) and before
+moving the project to `queue/`.
+
 ## Files
 
 - `virasat-brand-source.html` — the source of truth (Canva brand kit export). Colors, fonts, logo file references.

@@ -1,9 +1,10 @@
 #!/bin/bash
 # Virasat Video Factory — one-shot environment check + startup.
 # Usage: ./start-factory.sh
-# After this runs and the dashboard is open, just tell Claude Code the video brief
-# (topic, language, tone, orientation, source material) — it builds with /hyperframes
-# and drops the finished project into queue/ for voicing + rendering.
+# After this runs and the dashboard is open, just tell Claude Code you want a video —
+# it will run through video-factory/brand/starter-questions.md for the brief, build with
+# /hyperframes, apply the Virasat brand defaults (video-factory/brand/finalize-brand.mjs),
+# and drop the finished project into queue/ for voicing + rendering.
 
 set -e
 FACTORY_DIR="$HOME/Desktop/Virasat Video Factory/video-factory"
