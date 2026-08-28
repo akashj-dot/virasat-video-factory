@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1787711292246,
+  "updatedAt": 1787883590589,
   "paused": false,
   "concurrency": 3,
   "estRenderS": 200,
@@ -8,10 +8,31 @@
     "voicing": 0,
     "voiced": 0,
     "rendering": 0,
-    "done": 1,
+    "done": 2,
     "failed": 0
   },
   "jobs": [
+    {
+      "id": "financial-inventory-checklist",
+      "title": "How to Create a Financial Inventory From Scratch",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Build a simple financial inventory today, so your family can find everything when it matters.\"\ndestination: instagram-reel\naspect: 1080x1920\nlanguage: hi\naudience: \"Indian adults, 25-45, who haven't organized their family's financial records\"\nlength: 40s\nangle: how-to\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"How to create a financial\ninventory from scratch\") into a vertical checklist-style explainer reel.\nPractical, calm, no fear-mongering — walks the viewer through why an\ninventory matters, then exactly how to build one. Narration in Hindi.\n\n## Assets\n\nNone supplied as images — full carousel content was captured as text from\nuser-shared screenshots (Canva connector access was denied for the design\n`DAHP02wonaA`, so the user shared PNGs directly instead).\n\n## Customizations\n\n- Follow the source carousel's own content/copy exactly rather than writing\n  from scratch (per starter-questions.md branch 1 — \"convert existing IG\n  post\").\n- Scene order (from the carousel, resequenced for video pacing):\n  1. Cover/hook — \"How to cre",
+      "format": null,
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/financial-inventory-checklist",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1787851548680,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/financial-inventory-checklist.mp4",
+      "renderSeconds": 132,
+      "renderStartedAt": 1787883458322,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/financial-inventory-checklist/renders/financial-inventory-checklist.mp4",
+      "finishedAt": 1787883590589
+    },
     {
       "id": "unclaimed-assets-india",
       "title": "India's Unclaimed Money Problem",
