@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1787883590589,
+  "updatedAt": 1787886581106,
   "paused": false,
   "concurrency": 3,
   "estRenderS": 200,
@@ -8,10 +8,31 @@
     "voicing": 0,
     "voiced": 0,
     "rendering": 0,
-    "done": 2,
+    "done": 3,
     "failed": 0
   },
   "jobs": [
+    {
+      "id": "financial-inventory-checklist-en",
+      "title": "How to Create a Financial Inventory From Scratch (English)",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Build a simple financial inventory today, so your family can find everything when it matters.\"\ndestination: instagram-reel\naspect: 1080x1920\nlanguage: en\naudience: \"Indian adults, 25-45, who haven't organized their family's financial records\"\nlength: 60s\nangle: how-to\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nEnglish-language re-cut of `financial-inventory-checklist` (Hindi version,\nbuilt 2026-08-27/28). Same source carousel content and same scene structure,\ntranslated to English narration. This is a direct sibling project, not a\nfresh brief — the story beats, categories, and steps are locked from the\nHindi build; only language, voice pacing, and the fixes below change.\n\n## Assets\n\nNone — same invented visuals as the Hindi build, no captured assets.\n\n## Customizations\n\n- Same 9-scene structure as the Hindi build: Hook -> Stats -> Thesis ->\n  Where to start -> Steps 1-3 -> Steps 4-6 -> Warning -> Nine categories ->\n  Topic CTA (waitlist), then the brand's mandatory outro card appended after.\n- **Voice: cloned voice, `~/Desktop/voice-sample-2-raw.wav`** (the current\n  canonical s",
+      "format": null,
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/financial-inventory-checklist-en",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1787885107214,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/financial-inventory-checklist-en.mp4",
+      "renderSeconds": 103,
+      "renderStartedAt": 1787886478270,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/financial-inventory-checklist-en/renders/financial-inventory-checklist-en.mp4",
+      "finishedAt": 1787886581105
+    },
     {
       "id": "financial-inventory-checklist",
       "title": "How to Create a Financial Inventory From Scratch",
