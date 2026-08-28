@@ -36,6 +36,32 @@ cp "video-factory/brand/virasat-frame-<light|dark>.md" "<project>/frame.md"
 
 This skips `build-frame.mjs`'s preset-remix step entirely — these files are already complete, brand-correct design systems, not presets to remix.
 
+## Video production defaults (2026-08-28 onward)
+
+Apply these on every build — they're conventions to follow when authoring
+`STORYBOARD.md` / running the faceless-explainer pipeline scripts, not
+something a script enforces automatically:
+
+- **Caption font size** — `captions.mjs`'s built-in default pill sizes text
+  at `canvas_height * 0.038` (≈73px on a 1920-tall canvas), which reads too
+  large/dominant. After running `captions.mjs build`, edit the generated
+  `compositions/captions.html`'s `.caption-group { font-size: ... }` down to
+  roughly `canvas_height * 0.027` (≈52px on 1920) before assembling.
+- **A brief pause between frames** — bare `transition_in: crossfade` /
+  `push-slide UP` in `STORYBOARD.md` uses the pipeline's 0.5s default overlap,
+  which reads as a rushed cut. Specify an explicit duration on every
+  non-`cut` transition instead, e.g. `transition_in: crossfade 0.85s` /
+  `push-slide UP 0.85s` — `transitions.mjs` parses a trailing `Ns`/`N` token
+  as an override. Keep deliberate `cut` transitions (hard, no pause) where
+  the story wants a sharp beat.
+- **BGM volume** — see [[low-bgm-volume]] in memory: default the
+  hand-authored `audio_meta.json` `bgm.volume` to ~0.05-0.07, not the
+  pipeline's stock 0.12.
+- **Company name / pronunciation** — see `copy-style-guide.md`: the company
+  is "Virasat" (the leading dot belongs to the logo graphic only, never to
+  spoken or on-screen body text), and TTS narration should spell it
+  "Vira-sat" (hyphenated) to avoid the model mumbling the final syllable.
+
 ## Brand discipline
 
 - **One accent color only** — forest green (`primary`). Never introduce a second accent hue for emphasis.

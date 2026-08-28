@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1787886581106,
+  "updatedAt": 1787902851917,
   "paused": false,
   "concurrency": 3,
   "estRenderS": 200,
@@ -28,10 +28,10 @@
       "createdAt": 1787885107214,
       "error": null,
       "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/financial-inventory-checklist-en.mp4",
-      "renderSeconds": 103,
-      "renderStartedAt": 1787886478270,
+      "renderSeconds": 92,
+      "renderStartedAt": 1787902759638,
       "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/financial-inventory-checklist-en/renders/financial-inventory-checklist-en.mp4",
-      "finishedAt": 1787886581105
+      "finishedAt": 1787902851917
     },
     {
       "id": "financial-inventory-checklist",

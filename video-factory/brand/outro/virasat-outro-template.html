@@ -70,7 +70,13 @@
     }
 
     .outro-logo {
-      width: 34cqw;
+      /* Widened 2026-08-28 per explicit user feedback ("current virasat
+         logo is too small"). Was 34cqw against the untrimmed square PNG
+         (mostly padding, effective visible size ~19cqw wide / ~4.8cqw
+         tall). Now paired with the trimmed wordmark asset (~3.54:1
+         aspect) at 38cqw wide / ~10.7cqw tall — a clearly bigger,
+         legible brand mark relative to the 6.4cqw headline below it. */
+      width: 38cqw;
       height: auto;
       opacity: 0;
     }

@@ -31,7 +31,12 @@ import { fileURLToPath } from "node:url";
 const THIS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TEMPLATE_PATH = path.join(THIS_DIR, "outro", "virasat-outro-template.html");
 const BRAND_LOGO_DIR = path.join(THIS_DIR, "logo");
-const FULL_LOGO_FILE = "virasat-logo-full.png";
+// Trimmed 2026-08-28: the untrimmed square PNG is mostly transparent
+// padding around a thin wordmark band, so it rendered small even at a
+// generous cqw width. The trimmed asset (see add-logo-overlay.mjs's
+// header note) is cropped tight to content — pair with the outro-logo
+// CSS's cqw value, which is tuned for this asset's ~3.54:1 aspect ratio.
+const FULL_LOGO_FILE = "virasat-logo-full-trimmed.png";
 
 const THEME_TOKENS = {
   light: { bg: "#faf6ea", primary: "#108560", text: "#1d1c16", textMuted: "#6b6356" },
