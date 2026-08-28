@@ -48,18 +48,30 @@ if (!projectDir) {
 }
 
 const markArg = process.argv.find((a) => a.startsWith("--mark="));
-const mark = markArg ? markArg.split("=")[1] : "icon";
+// Default changed 2026-08-28 per explicit user feedback: the icon mark reads
+// as a bare rupee symbol, not recognizably "Virasat" — default to the full
+// wordmark going forward. Pass --mark=icon to opt back into the old mark.
+const mark = markArg ? markArg.split("=")[1] : "full";
 if (!["icon", "full"].includes(mark)) {
   console.error(`invalid --mark "${mark}" (icon | full)`);
   process.exit(1);
 }
 
-const srcLogoFile = mark === "icon" ? "virasat-logo-icon.png" : "virasat-logo-full.png";
+// The full wordmark's source PNG (virasat-logo-full.png) is a 4884x4884
+// square canvas with the actual ".VIRASAT" content occupying only a thin
+// horizontal band in the middle (~3.5:1 aspect) — using it directly at a
+// square watermark size would shrink the wordmark to an illegible sliver.
+// virasat-logo-full-trimmed.png is that same art cropped tight to content
+// (2944x832, ~3.54:1) — always use the trimmed version for "full".
+const srcLogoFile = mark === "icon" ? "virasat-logo-icon.png" : "virasat-logo-full-trimmed.png";
 const srcLogoPath = path.join(BRAND_LOGO_DIR, srcLogoFile);
 if (!fs.existsSync(srcLogoPath)) {
   console.error(`brand logo file not found: ${srcLogoPath}`);
   process.exit(1);
 }
+// Icon is exactly square; the trimmed full wordmark is ~3.54:1 (w:h) — size
+// the watermark box from real content aspect, never assume square.
+const LOGO_ASPECT_W_OVER_H = mark === "icon" ? 1 : 2944 / 832;
 
 const framesDir = path.join(projectDir, "compositions", "frames");
 if (!fs.existsSync(framesDir)) {
@@ -82,11 +94,20 @@ if (!frameFiles.length) {
 let patched = 0;
 let skipped = 0;
 
+// Stable marker for idempotency — the actual CSS this script writes
+// (`#root::after { ... }`) is not distinctive enough to grep for reliably
+// (a frame could plausibly define its own `#root::after` for something
+// else), and the previous marker string ("brand-logo-badge") never
+// appeared anywhere this script writes, so re-running it always re-patched
+// every frame and silently duplicated the block. This comment is unique
+// and only ever written by this script.
+const MARKER = "/* virasat-brand-logo-overlay */";
+
 for (const file of frameFiles) {
   const filePath = path.join(framesDir, file);
   let html = fs.readFileSync(filePath, "utf8");
 
-  if (html.includes("brand-logo-badge")) {
+  if (html.includes(MARKER)) {
     skipped++;
     continue;
   }
@@ -95,7 +116,14 @@ for (const file of frameFiles) {
   // consistently across 9:16 / 16:9 / 1:1 without per-format tuning.
   const rootTagMatch = html.match(/<div[^>]*\bid="root"[^>]*>/);
   const width = Number(rootTagMatch?.[0]?.match(/data-width="(\d+(?:\.\d+)?)"/)?.[1] ?? 1080);
-  const logoWidthPx = Math.round(width * 0.09);
+  // Icon watermark keeps its established footprint (9% of canvas width,
+  // square). The wordmark reads smaller at a glance for the same box area
+  // (thin horizontal glyphs vs a solid icon glyph), so it gets a wider
+  // box — sized so its rendered HEIGHT roughly matches the icon's, with
+  // width following from its own aspect ratio instead of being squeezed
+  // into a square.
+  const logoHeightPx = Math.round(width * (mark === "icon" ? 0.09 : 0.045));
+  const logoWidthPx = Math.round(logoHeightPx * LOGO_ASPECT_W_OVER_H);
   const marginPx = Math.round(width * 0.03);
 
   // Plain #root selector only — a compound selector like
@@ -105,26 +133,37 @@ for (const file of frameFiles) {
   // painted on #root itself, so it can never shift another element's layout.
   // Top-RIGHT corner — see header note on why left was rejected.
   const styleAddendum =
+    `    ${MARKER}\n` +
     `    #root::after {\n` +
     `      content: "";\n` +
     `      position: absolute;\n` +
     `      top: ${marginPx}px;\n` +
     `      right: ${marginPx}px;\n` +
     `      width: ${logoWidthPx}px;\n` +
-    `      height: ${logoWidthPx}px;\n` + // both brand marks are exactly square (4884x4884)
+    `      height: ${logoHeightPx}px;\n` +
     `      z-index: 999;\n` +
     `      pointer-events: none;\n` +
     `      background-image: url("${logoRelPath}");\n` +
     `      background-size: contain;\n` +
     `      background-repeat: no-repeat;\n` +
+    `      background-position: center;\n` +
     `    }\n  </style>`;
 
-  const styleCloseIdx = html.lastIndexOf("  </style>");
-  if (styleCloseIdx === -1) {
+  // Match the closing style tag regardless of its leading whitespace —
+  // a literal two-space-indented match ("  </style>") silently skipped
+  // any frame whose </style> wasn't indented exactly that way.
+  const styleCloseRe = /[ \t]*<\/style>/g;
+  let lastMatch = null;
+  for (const m of html.matchAll(styleCloseRe)) lastMatch = m;
+  if (!lastMatch) {
     console.warn(`  skip ${file}: no </style> found`);
     continue;
   }
-  html = html.slice(0, styleCloseIdx) + styleAddendum + html.slice(styleCloseIdx + "  </style>".length);
+  const styleCloseIdx = lastMatch.index;
+  html =
+    html.slice(0, styleCloseIdx) +
+    styleAddendum +
+    html.slice(styleCloseIdx + lastMatch[0].length);
 
   fs.writeFileSync(filePath, html);
   patched++;
