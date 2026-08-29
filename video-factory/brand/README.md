@@ -38,7 +38,7 @@ root `CLAUDE.md` for when exactly to run it.
 - `logo/` — transparent-background logo PNGs for video overlay (`virasat-logo-icon.png`, `virasat-logo-full.png`).
 - `add-logo-overlay.mjs` — bakes the persistent logo watermark (top-right corner) into every frame of a built project. Run once per project, any time after Step 5 (frame build): `node video-factory/brand/add-logo-overlay.mjs <projectDir> [--mark=icon|full]` (defaults to `icon`). Safe to run before or after `assemble-index.mjs` — it only touches `compositions/frames/*.html`, never `index.html`.
 - `copy-style-guide.md` — copy rules for anything that renders inside the video (script, on-screen text, captions). Currently just one rule: no em dashes. Check this before writing/finalizing SCRIPT.md or any on-screen text.
-- `outro/` — the closing waitlist/outro card: `virasat-outro-template.html` (the composition template) and `fonts/` (self-contained Merriweather/Space Mono/Space Grotesk woff2 files it needs, bundled so the card renders correctly even in a project that hasn't fetched those families itself).
+- `outro/` — the closing waitlist/outro card: `virasat-outro-template.html` (the composition template) and `fonts/` (self-contained Fraunces/Space Mono/Space Grotesk woff2 files it needs, bundled so the card renders correctly even in a project that hasn't fetched those families itself).
 - `add-outro-card.mjs` — appends the outro card as a new final scene, AFTER whatever the project's own topic-specific CTA frame is. Run once per project, same window as the logo script: `node video-factory/brand/add-outro-card.mjs <projectDir> [--theme=light|dark] [--duration=4.5]`. Theme auto-detects from the project's `frame.md` if not passed explicitly. Unlike the logo script, this one does edit `index.html` — it appends a new `data-composition-src` scene (the same pattern every other frame already uses), extends the root/BGM/captions durations to match, and adds a crossfade transition from the previous last frame. The exact copy is fixed: "We're building the fix for this." / "Be the first inside." / "link in bio to grab early access" — don't paraphrase it. It also carries a cloned-voice read of that exact copy (`outro/voice-outro.wav`, reused as-is across every project) and wires it in as a voice track, sized off the real clip length plus a short hold rather than a fixed duration.
 - `apply-skill-patches.mjs` — re-applies local customizations to `~/.claude/skills/` that `hyperframes init`/`skills update` would otherwise silently wipe. See "Also mandatory" above.
 
@@ -104,9 +104,10 @@ something a script enforces automatically:
 
 ## Also apply on every build — creative direction (2026-08-29 onward)
 
-The brand's tokens (green/ivory, Merriweather/Space Grotesk/Space Mono) are
-locked and not up for revision. What's been under-used is craft *within*
-those constraints — variety of shape, camera motion, and background
+The brand's color palette (green/ivory) is locked and not up for revision;
+typography was revised 2026-08-29 (Merriweather → Fraunces, see Brand
+discipline below — sizes bumped too). What's been under-used beyond that is
+craft *within* the palette — variety of shape, camera motion, and background
 density. Apply these on every build so future videos don't read as flat or
 repetitive:
 
@@ -140,4 +141,11 @@ repetitive:
 - **One accent color only** — forest green (`primary`). Never introduce a second accent hue for emphasis.
 - **Heritage gold** (`accent-gold-reserved`) exists in the token set but is *not* a default accent — only use it for a deliberate, rare celebratory/heritage callout, never as a substitute for the green accent.
 - **Shadows are allowed** — unlike some prior one-off video themes, the Virasat brand's own site uses a soft warm-tinted card shadow (`shadow.card-md`). Don't strip it out by habit.
-- **Fonts**: Merriweather (serif) for headlines/display/blockquotes, Space Grotesk (sans) for body/UI/numerals, Space Mono for eyebrows/tags/small labels. All three auto-resolve via Google Fonts at `hyperframes check`/`render` time — no manual font file provisioning needed.
+- **Fonts** (revised 2026-08-29): **Fraunces** (serif) for headlines/display/blockquotes — replaces Merriweather; variable weight (300-900) with optical sizing, noticeably more character at large display sizes while staying warm/trustworthy. Space Grotesk (sans) for body/UI/numerals, Space Mono for eyebrows/tags/small labels — both unchanged. All three auto-resolve via Google Fonts at `hyperframes check`/`render` time — no manual font file provisioning needed, except the outro card's bundled woff2s (`outro/fonts/Fraunces-Bold.woff2`), which were re-derived from the same swap and need re-deriving again if the weight/family ever changes.
+  - Font choice was never actually locked by the brand (only the green/ivory
+    palette is) — the previous Merriweather choice was a video-team default,
+    not a cross-product constraint. `virasat-brand-source.html`'s own
+    `--font-heading` was updated to match, so this is now the canonical
+    brand font, not a video-only divergence — carry it into the web app too
+    when that gets touched next.
+- **Type sizes must hit the "fill the frame" floor.** `hyperframes-creative/references/video-composition.md` calls for headlines at 64-120px and hero text at 60-80% of frame width — treat these as a floor, not a ceiling. The `frame.md` type ramp's `cqw` values were bumped 2026-08-29 for exactly this reason (h1 was 4.0cqw ≈ 43px on a 1080-wide canvas, now 8.2cqw ≈ 89px). When hand-tuning a frame's type size, check it against these numbers before shipping — a headline that reads small in isolation reads *tiny* on a phone screen in a feed.
