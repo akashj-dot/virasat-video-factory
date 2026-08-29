@@ -77,6 +77,63 @@ something a script enforces automatically:
   is "Virasat" (the leading dot belongs to the logo graphic only, never to
   spoken or on-screen body text), and TTS narration should spell it
   "Vira-sat" (hyphenated) to avoid the model mumbling the final syllable.
+- **`STORYBOARD.md` metadata lines need a leading `- `.** `focal:` / `roles:`
+  / `sfx:` (and every other per-frame metadata key) must be written as
+  `- sfx: whoosh-short`, never bare `sfx: whoosh-short` — the parser
+  (`storyboard.mjs`'s `META_RE`) only recognizes bulleted lines; a bare line
+  silently falls into free-form narrative text and the field is dropped with
+  no warning. Confirmed 2026-08-29: the `epf-money-left-behind` video shipped
+  with zero SFX because every `focal`/`roles`/`sfx` line across all 8 frames
+  was missing the dash.
+- **SFX cue names must match the offline manifest, not describe the sound.**
+  With no HeyGen credential, `sfx:` cues resolve only against the 19-key
+  bundled library — a cue like `soft whoosh on counter start, tick on
+  landing` will never match anything (there is no `tick`) and silently
+  resolves to 0 cues. Use exact manifest keys, comma-separated for multiple:
+  `chime`, `click-soft`, `click`, `error`, `glitch-1/2/3`,
+  `impact-bass-1/2`, `key-press`, `notification`, `ping`, `pop`, `riser`,
+  `sparkle`, `typing`, `whoosh-cinematic`, `whoosh-short`, `whoosh`. Check
+  `media-use/audio/assets/sfx/manifest.json` for current descriptions before
+  picking one. `sfx: none` (exact spelling) marks a frame intentionally
+  silent — don't add trailing prose after it.
+- **Sound is not optional polish.** A silent video reads as low-effort
+  regardless of how good the motion is — treat a 0-cues-resolved `fetch-sfx`
+  run as a build-blocking bug, not a thing to shrug off, and verify
+  `audio_meta.json`'s `sfx[]` array is non-empty (when the storyboard names
+  any cues) before rendering.
+
+## Also apply on every build — creative direction (2026-08-29 onward)
+
+The brand's tokens (green/ivory, Merriweather/Space Grotesk/Space Mono) are
+locked and not up for revision. What's been under-used is craft *within*
+those constraints — variety of shape, camera motion, and background
+density. Apply these on every build so future videos don't read as flat or
+repetitive:
+
+- **Blueprint variety.** Draw from at least 4-5 distinct blueprints per video
+  (`hyperframes-animation/blueprints-index.md`'s role→blueprint menu) —
+  don't lean on the same 2-3 shapes (stat counter, kinetic list, title card)
+  for the whole runtime. Repeating a blueprint twice in a row is fine when
+  it's a genuinely continuous system (e.g. a checklist split across two
+  frames); reusing it three-plus times across a video reads as templated.
+- **At least one camera-motion beat per video.** A frame built entirely as a
+  flat, locked 2D composition (only internal elements animate, the "camera"
+  never moves) is the single biggest tell of a static, low-effort build.
+  Reach for `multi-phase-camera` (pull-back/focus/push+drift),
+  `viewport-change` (pan/zoom/focus-lock), `coordinate-target-zoom`, or —
+  for a dramatic moment — `3d-camera-flight`. The hook or the pivot/turn
+  frame are usually the best candidates.
+- **Decorative density floor.** For any frame beyond a minimal title/CTA
+  card, plan the 6-10 visual roles `hyperframes-creative/references/
+  video-composition.md`'s Density section calls for (background treatment +
+  midground content + foreground accents) — not just a flat field behind one
+  card. Background ideas: radial glow, ghost type (theme words at low
+  opacity, oversized, slow drift), grain, grid, accent lines.
+- **Heritage gold, used deliberately.** `accent-gold-reserved` exists for
+  exactly this: spend it on at most one hero/celebratory beat per video (the
+  payoff stat, the resolution moment, a completion flourish) — never as a
+  second primary accent, never repeated within a video. See Brand discipline
+  below for the base rule this refines.
 
 ## Brand discipline
 
