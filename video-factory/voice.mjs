@@ -11,7 +11,7 @@ const dir = process.argv[2];
 if (!dir) { console.error("usage: node voice.mjs <projectDir>"); process.exit(1); }
 const HOME = os.homedir();
 const VENV_PY = path.join(HOME, ".voice-clone-venv/bin/python");
-const REF = path.join(HOME, "Desktop/voice-sample.wav");
+const REF = path.join(HOME, "Desktop/voice-sample-2-raw.wav");
 const MODEL = "mlx-community/chatterbox-turbo-fp16";
 
 // Parse SCRIPT.md: "## Line N (...)" headers, spoken text on following line(s).
