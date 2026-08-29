@@ -26,11 +26,19 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const THIS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TEMPLATE_PATH = path.join(THIS_DIR, "outro", "virasat-outro-template.html");
 const BRAND_LOGO_DIR = path.join(THIS_DIR, "logo");
+// Pre-generated cloned-voice read of the fixed outro copy (see the header
+// comment's exact wording) — reused as-is across every project rather than
+// regenerated per video, since the copy never changes. Added 2026-08-29 per
+// user request ("no voice cloning for outro?" -> add narration by default).
+// Regenerate only if the copy itself ever changes: node voice.mjs against a
+// one-line SCRIPT.md with this exact text, using the canonical voice sample.
+const OUTRO_VOICE_PATH = path.join(THIS_DIR, "outro", "voice-outro.wav");
 // Trimmed 2026-08-28: the untrimmed square PNG is mostly transparent
 // padding around a thin wordmark band, so it rendered small even at a
 // generous cqw width. The trimmed asset (see add-logo-overlay.mjs's
@@ -56,7 +64,20 @@ if (!projectDir) {
 
 const themeArg = process.argv.find((a) => a.startsWith("--theme="));
 const durationArg = process.argv.find((a) => a.startsWith("--duration="));
-const outroDuration = durationArg ? Number(durationArg.split("=")[1]) : 4.5;
+const hasOutroVoice = fs.existsSync(OUTRO_VOICE_PATH);
+
+// Default duration must cover the spoken line (when present) plus a short
+// hold, not the old fixed 4.5s — an explicit --duration still wins.
+function probeDuration(wavPath) {
+  const out = execFileSync("ffprobe", [
+    "-v", "error", "-show_entries", "format=duration",
+    "-of", "default=noprint_wrappers=1:nokey=1", wavPath,
+  ]);
+  return Number(out.toString().trim());
+}
+const outroVoiceDuration = hasOutroVoice ? Math.round(probeDuration(OUTRO_VOICE_PATH) * 1000) / 1000 : null;
+const defaultDuration = hasOutroVoice ? Math.round((outroVoiceDuration + 0.4) * 100) / 100 : 4.5;
+const outroDuration = durationArg ? Number(durationArg.split("=")[1]) : defaultDuration;
 
 const indexPath = path.join(projectDir, "index.html");
 if (!fs.existsSync(indexPath)) {
@@ -137,6 +158,17 @@ for (const f of fs.readdirSync(FONTS_DIR)) {
   if (!fs.existsSync(dest)) fs.copyFileSync(path.join(FONTS_DIR, f), dest);
 }
 
+// Stage the outro voice line, if the cached brand asset exists. Named
+// "outro.wav" (not a zero-padded number) so it can never collide with a
+// project's own NN-numbered voice lines.
+let outroVoiceRelPath = null;
+if (hasOutroVoice) {
+  const voiceDestDir = path.join(projectDir, "assets", "voice");
+  fs.mkdirSync(voiceDestDir, { recursive: true });
+  outroVoiceRelPath = "assets/voice/outro.wav";
+  fs.copyFileSync(OUTRO_VOICE_PATH, path.join(voiceDestDir, "outro.wav"));
+}
+
 // Fill the template.
 let outroHtml = fs.readFileSync(TEMPLATE_PATH, "utf8");
 outroHtml = outroHtml
@@ -194,7 +226,17 @@ const newSceneBlock =
   `        data-start="${outroStart}"\n` +
   `        data-duration="${outroDuration}"\n` +
   `        data-track-index="${newTrackIndex}"\n` +
-  `      ></div>\n`;
+  `      ></div>\n` +
+  (outroVoiceRelPath
+    ? `      <audio\n` +
+      `        id="el-${compositionId}-voice"\n` +
+      `        src="${outroVoiceRelPath}"\n` +
+      `        data-start="${outroStart}"\n` +
+      `        data-duration="${outroVoiceDuration}"\n` +
+      `        data-track-index="10"\n` +
+      `        data-volume="1"\n` +
+      `      ></audio>\n`
+    : "");
 
 const lastElOpenTag = new RegExp(`<div\\s+id="${lastEl}"[\\s\\S]*?<\\/div>`);
 const lastElMatch = index.match(lastElOpenTag);
@@ -240,5 +282,6 @@ index = index.replace(
 fs.writeFileSync(indexPath, index);
 
 console.log(
-  `✓ outro card appended: ${frameFileName} (${theme} theme), start=${outroStart}s duration=${outroDuration}s, new total=${newTotal}s`,
+  `✓ outro card appended: ${frameFileName} (${theme} theme), start=${outroStart}s duration=${outroDuration}s, new total=${newTotal}s` +
+    (outroVoiceRelPath ? `, voice=${outroVoiceRelPath}` : ", voice=none (cached asset missing)"),
 );
