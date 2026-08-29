@@ -24,6 +24,26 @@ This bakes in, automatically, on every video with no need to ask the user:
 These are defaults, not something to ask the user about per-video. See
 `video-factory/brand/README.md` for what each script actually does and why.
 
+## Also mandatory — run right after any HyperFrames skill sync
+
+`npx hyperframes init` and `npx hyperframes skills update <workflow>` (which
+every workflow runs at its own Step 0) sync skill files from HeyGen's hosted
+registry and **silently revert any local customizations** to
+`~/.claude/skills/` — confirmed 2026-08-29. Right after either of those runs
+(in practice: right after Step 0 of whichever workflow is building the
+video), run:
+
+```bash
+node "video-factory/brand/apply-skill-patches.mjs"
+```
+
+Idempotent — safe to run even when nothing changed. Re-applies: the portrait
+top-safe-zone rule, the SFX anticipatory-lead-time rule, the max-one-glow
+rule, and the `iris` circle-wipe transition (registered in the transition
+registry + the planner-facing story-design docs). If it reports a failed
+patch (an anchor not found), the skill file changed shape upstream — flag it
+before continuing the build rather than silently skipping.
+
 ## Also apply on every build
 
 - **Brand design tokens** — copy `video-factory/brand/virasat-frame-light.md`

@@ -15,6 +15,21 @@ watermarked too). This step is **mandatory on every project** — see the root
 `CLAUDE.md`. Run it once, any time after Step 5 (frame build) and before
 moving the project to `queue/`.
 
+## Also mandatory: re-apply skill patches after any skill sync
+
+```bash
+node video-factory/brand/apply-skill-patches.mjs
+```
+
+`npx hyperframes init` / `npx hyperframes skills update <workflow>` (every
+workflow's own Step 0) sync `~/.claude/skills/` from HeyGen's hosted registry
+and silently revert local edits to skill files. This script re-applies
+Virasat's motion/composition customizations on top of whatever the sync just
+installed: the portrait top-safe-zone rule, the SFX anticipatory-lead-time
+rule, the max-one-glow-per-frame rule, and the `iris` circle-wipe transition.
+Idempotent — safe to run any time, including when nothing changed. See the
+root `CLAUDE.md` for when exactly to run it.
+
 ## Files
 
 - `virasat-brand-source.html` — the source of truth (Canva brand kit export). Colors, fonts, logo file references.
@@ -24,7 +39,8 @@ moving the project to `queue/`.
 - `add-logo-overlay.mjs` — bakes the persistent logo watermark (top-right corner) into every frame of a built project. Run once per project, any time after Step 5 (frame build): `node video-factory/brand/add-logo-overlay.mjs <projectDir> [--mark=icon|full]` (defaults to `icon`). Safe to run before or after `assemble-index.mjs` — it only touches `compositions/frames/*.html`, never `index.html`.
 - `copy-style-guide.md` — copy rules for anything that renders inside the video (script, on-screen text, captions). Currently just one rule: no em dashes. Check this before writing/finalizing SCRIPT.md or any on-screen text.
 - `outro/` — the closing waitlist/outro card: `virasat-outro-template.html` (the composition template) and `fonts/` (self-contained Merriweather/Space Mono/Space Grotesk woff2 files it needs, bundled so the card renders correctly even in a project that hasn't fetched those families itself).
-- `add-outro-card.mjs` — appends the outro card as a new final scene, AFTER whatever the project's own topic-specific CTA frame is. Run once per project, same window as the logo script: `node video-factory/brand/add-outro-card.mjs <projectDir> [--theme=light|dark] [--duration=4.5]`. Theme auto-detects from the project's `frame.md` if not passed explicitly. Unlike the logo script, this one does edit `index.html` — it appends a new `data-composition-src` scene (the same pattern every other frame already uses), extends the root/BGM/captions durations to match, and adds a crossfade transition from the previous last frame. The exact copy is fixed: "We're building the fix for this." / "Be the first inside." / "link in bio to grab early access" — don't paraphrase it.
+- `add-outro-card.mjs` — appends the outro card as a new final scene, AFTER whatever the project's own topic-specific CTA frame is. Run once per project, same window as the logo script: `node video-factory/brand/add-outro-card.mjs <projectDir> [--theme=light|dark] [--duration=4.5]`. Theme auto-detects from the project's `frame.md` if not passed explicitly. Unlike the logo script, this one does edit `index.html` — it appends a new `data-composition-src` scene (the same pattern every other frame already uses), extends the root/BGM/captions durations to match, and adds a crossfade transition from the previous last frame. The exact copy is fixed: "We're building the fix for this." / "Be the first inside." / "link in bio to grab early access" — don't paraphrase it. It also carries a cloned-voice read of that exact copy (`outro/voice-outro.wav`, reused as-is across every project) and wires it in as a voice track, sized off the real clip length plus a short hold rather than a fixed duration.
+- `apply-skill-patches.mjs` — re-applies local customizations to `~/.claude/skills/` that `hyperframes init`/`skills update` would otherwise silently wipe. See "Also mandatory" above.
 
 ## How a build uses this
 
