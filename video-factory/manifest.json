@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1787902851917,
+  "updatedAt": 1788016415314,
   "paused": false,
   "concurrency": 3,
   "estRenderS": 200,
@@ -8,10 +8,31 @@
     "voicing": 0,
     "voiced": 0,
     "rendering": 0,
-    "done": 3,
+    "done": 4,
     "failed": 0
   },
   "jobs": [
+    {
+      "id": "epf-money-left-behind",
+      "title": "EPF and the Money Left Behind",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"EPFO holds an EDLI death benefit worth up to Rs 7 lakh for every subscriber's family, but outdated nominee details, missing UANs and unknown employers mean most of it never gets claimed. Update your EPF nomination now, before your family needs it.\"\ndestination: instagram-reel\naspect: 1080x1920\nlanguage: en\naudience: \"Indian salaried EPFO subscribers, 25-50, and their families who have never checked or updated their EPF nominee details\"\nlength: 45s\nangle: documentary-investigative\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"EPF and the Money Left\nBehind\") into a vertical explainer reel. Documentary/investigative tone —\nfactual, calm, no fear-mongering, builds a clear case with numbers then\ngives the viewer concrete steps. Narration in English.\n\n## Assets\n\nNone supplied as raster assets to reuse directly — full carousel content\ncaptured as text/structure from user-shared PNGs (zip:\n`IG062 - EPF and the Money Left Behind.zip`, 5 slides). Follow the source\ncarousel's own content and copy exactly rather than writing from scratch\n(per starter-questions.md branch 1 — \"convert existing IG post\"). Visuals\nfor the reel are invented (typography, stat call-outs, data-viz, diagrams)\nin the brand's dark theme rather than reproducing the carousel's light\nCanva design 1:1.\n\n## Source carousel content (from PNGs, in order)\n\n1. **Cover** — \"EPF AND THE MONEY LEFT BEHIND\" (Virasat logo, briefcase +\n   rupee note collage, \"Swipe\" cue — cover only, not a narrated beat).\n2. **Claims that never get filed** — EPFO manages retirement savings for\n   6+ crore active subscribers. When an employee dies, the family must\n   claim the EPF balance and the EDLI death benefit, up to Rs 7 lakh. Many\n   never claim it because they didn't know it existed, or nominee details\n   are outdated. Stats: Subscribers 6Cr+, Max EDLI payout Rs 7L, Often\n   Unclaimed. Tens of thousands of EPF claims are delayed or rejected every\n   year — most trace back to outdated nominee records.\n3. **Four ways the claim gets stuck**:\n   1. Outdated nominee — jobs, cities, marriage change; Form 2 nomination\n      is rarely updated to match.\n   2. Missing UAN — without the Universal Account Number, tracing the\n      balance becomes a bureaucratic maze.\n   3. Unknown employer — families often don't know which employer made the\n      last contributions.\n   4. Unclaimed EDLI — the death benefit must be claimed separately, many\n      families never know to ask.\n   Without the UAN, tracing an EPF balance can take months or years.\n4. **Update it before it's needed** — five action steps:\n   1. Verify your nominee under e-Nomination on the EPFO portal; update if\n      outdated.\n   2. Note your UAN and store it with your other financial records.\n   3. Tell your nominee the UAN and which employer accounts are linked.\n   4. Make sure your family knows they can claim EDLI separately.\n   5. Consolidate old EPF accounts using the online transfer facility.\n   Closer line: \"Don't let a claim go unfiled.\"\n5. **Waitlist CTA card** (source carousel's own outro) — superseded by the\n   factory's mandatory closing waitlist card; do not recreate this slide,\n   `finalize-brand.mjs` appends the standard one automatically.\n\n## Customizations\n\n- Scene order for narration/video pacing: Hook (from slide 1's title) ->\n  Stats/thesis (slide 2) -> Four stuck-points (slide 3, one beat per\n  reason) -> Five action steps (slide 4, grouped into 2-3 beats so text\n  density stays readable at reel pace) -> Topic CTA line (\"Don't let a\n  claim go unfiled\") -> brand's mandatory outro card (appended by\n  `finalize-brand.mjs`, not authored here).\n- No em dashes anywhere in narration script, on-screen copy, or captions.\n- Burned-in English captions.\n- Theme: dark (`brand/virasat-frame-dark.md`) per explicit user choice,\n  even though the source carousel itself is light-themed — do not attempt\n  to visually match the Canva design's palette.\n- BGM: `video-factory/BGM Sound/uniquecreativeaudio-presentation-steady-cool-beat-instrumental-172311.mp3`,\n  mixed low (~0.05-0.07 gain, listen-check before finalizing) per house\n  default.\n- Voice: cloned voice, canonical sample per project memory (English reads\n  naturally, unlike Hindi).\n- Run `node \"video-factory/brand/finalize-brand.mjs\" <projectDir>` after\n  frames are built and before moving to `video-factory/queue/` — logo\n  watermark + closing waitlist card, mandatory, not optional.\n",
+      "format": null,
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/epf-money-left-behind",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1788016344504,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/epf-money-left-behind.mp4",
+      "renderSeconds": null,
+      "renderStartedAt": 1788016344504,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/epf-money-left-behind/renders/video.mp4",
+      "finishedAt": 1788016344504
+    },
     {
       "id": "financial-inventory-checklist-en",
       "title": "How to Create a Financial Inventory From Scratch (English)",
