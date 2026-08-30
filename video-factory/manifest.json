@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1788086319493,
+  "updatedAt": 1788087582154,
   "paused": false,
   "concurrency": 3,
   "estRenderS": 200,
@@ -8,9 +8,9 @@
     "voicing": 0,
     "voiced": 0,
     "rendering": 0,
-    "done": 4,
+    "done": 5,
     "failed": 0,
-    "building": 1
+    "building": 0
   },
   "jobs": [
     {
@@ -18,13 +18,13 @@
       "title": "estate-planning-not-just-rich",
       "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Estate planning isn't a rich-person problem — a middle-class family with no will, no nominees, and no records can fracture just as badly as any billionaire succession battle.\"\ndestination: instagram-reel\naspect: 1080x1920\nlanguage: en\naudience: \"Indian middle-class adults, 25-45, who assume estate planning is only for the wealthy\"\nlength: 60s\nangle: cautionary\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"Estate Planning Is Not\nJust for the Rich\") into a vertical cautionary/consequence-led explainer\nreel. Source: 5-slide Canva export supplied directly by the user as PNGs\n(`video-factory/incoming/IG058-estate-planning/1.png` ... `5.png`), not\npulled via the Canva connector.\n\nPer `brand/starter-questions.md` branch 1 (convert existing IG post): follow\nthe source carousel's own structure/copy rather than writing from scratch,\nbut verify the underlying facts via public research rather than treating the\ncarousel's claims as pre-verified — particularly the nominee-vs-legal-heir\ndistinction under Indian succession law (a nominee is oft",
       "format": null,
-      "status": "building",
-      "active": true,
-      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/building/estate-planning-not-just-rich",
+      "status": "done",
+      "active": false,
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/estate-planning-not-just-rich",
       "createdAt": 1788066513167,
       "error": null,
-      "outputPath": null,
-      "renderSeconds": null
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/estate-planning-not-just-rich.mp4",
+      "renderSeconds": 49
     },
     {
       "id": "epf-money-left-behind",
