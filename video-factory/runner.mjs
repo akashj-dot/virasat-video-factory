@@ -391,6 +391,21 @@ const server = http.createServer((req, res) => {
       }
       return json(res, { ok: true });
     }
+    if (p === "/delete" && id && jobs.has(id)) {
+      const job = jobs.get(id);
+      if (job.status !== "done" && job.status !== "failed") {
+        res.writeHead(409); return res.end("job still in progress — cancel it first");
+      }
+      try { if (fs.existsSync(job.dir)) fs.rmSync(job.dir, { recursive: true, force: true }); } catch {}
+      try { fs.rmSync(path.join(DIR.output, `${id}.mp4`)); } catch {}
+      try { fs.rmSync(path.join(DIR.thumbs, `${id}.jpg`)); } catch {}
+      try { fs.rmSync(path.join(READY_TO_POST, `${id}.mp4`)); } catch {}
+      try { fs.rmSync(path.join(DIR.state, `${id}.json`)); } catch {}
+      jobs.delete(id);
+      log(`deleted: ${id}`);
+      rebuildManifest();
+      return json(res, { ok: true });
+    }
     if (p === "/cancel" && id && jobs.has(id)) {
       const job = jobs.get(id);
       const child = children.get(id);

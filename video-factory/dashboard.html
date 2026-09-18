@@ -68,6 +68,7 @@
   .actions { margin-top: 10px; display: flex; gap: 8px; }
   .actions button { padding: 5px 12px; font-size: 12px; }
   .actions .danger:hover { border-color: var(--failed); }
+  .actions .danger.confirm { background: var(--failed); color: #2a0d13; border-color: var(--failed); }
   video { width: 100%; border-radius: 8px; margin-top: 10px; background: #000; max-height: 340px; }
   .empty { color: var(--dim); text-align: center; padding: 60px 20px; font-size: 15px; }
   .empty code { background: var(--panel2); padding: 3px 8px; border-radius: 6px; color: var(--accent); }
@@ -208,8 +209,9 @@ function card(j, now) {
   }
   // cancel while in progress; retry when failed
   let actions = "";
-  if (s === "failed") actions = `<button onclick="act('retry','${j.id}',this)">Retry</button>`;
+  if (s === "failed") actions = `<button onclick="act('retry','${j.id}',this)">Retry</button><button class="danger" onclick="del('${j.id}',this)">Delete</button>`;
   else if (["building", "queued", "voicing", "rendering"].includes(s)) actions = `<button class="danger" onclick="act('cancel','${j.id}',this)">Cancel</button>`;
+  else if (s === "done") actions = `<button class="danger" onclick="del('${j.id}',this)">Delete</button>`;
 
   return `<div class="card ${s}">
     <div class="top">${fmtIcon(j.format)}<span class="title">${escapeHtml(cleanTitle(j.title))}</span><span class="badge ${s}">${s}</span></div>
@@ -258,6 +260,13 @@ async function act(kind, id, btn) {
   if (btn) { btn.disabled = true; btn.textContent = "…"; }
   try { await fetch(`/${kind}?job=${encodeURIComponent(id)}`, { method: "POST" }); }
   catch { setOffline(true); if (btn) { btn.disabled = false; btn.textContent = kind === "retry" ? "Retry" : "Cancel"; } return; }
+  poll();
+}
+async function del(id, btn) {
+  if (btn.textContent !== "Sure?") { btn.textContent = "Sure?"; btn.classList.add("confirm"); setTimeout(() => { if (btn.isConnected && btn.textContent === "Sure?") { btn.textContent = "Delete"; btn.classList.remove("confirm"); } }, 3000); return; }
+  btn.disabled = true; btn.textContent = "…";
+  try { await fetch(`/delete?job=${encodeURIComponent(id)}`, { method: "POST" }); }
+  catch { setOffline(true); btn.disabled = false; btn.textContent = "Delete"; return; }
   poll();
 }
 async function togglePause() {

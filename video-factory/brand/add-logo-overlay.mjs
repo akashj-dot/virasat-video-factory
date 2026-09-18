@@ -122,7 +122,9 @@ for (const file of frameFiles) {
   // box — sized so its rendered HEIGHT roughly matches the icon's, with
   // width following from its own aspect ratio instead of being squeezed
   // into a square.
-  const logoHeightPx = Math.round(width * (mark === "icon" ? 0.09 : 0.045));
+  // Bumped 2026-09-18 per explicit user feedback that the wordmark read too
+  // small in finished renders (was 0.045 / 0.09 — now ~45% larger).
+  const logoHeightPx = Math.round(width * (mark === "icon" ? 0.13 : 0.065));
   const logoWidthPx = Math.round(logoHeightPx * LOGO_ASPECT_W_OVER_H);
   const marginPx = Math.round(width * 0.03);
 
