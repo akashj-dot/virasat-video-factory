@@ -20,8 +20,9 @@
     background: rgba(15,17,21,.92); backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line); padding: 16px 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
   }
-  h1 { font-size: 20px; font-weight: 800; margin: 0; letter-spacing: -.3px; }
-  h1 span { color: var(--accent); }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand .logo { height: 24px; width: auto; display: block; }
+  .brand .appname { font-size: 20px; font-weight: 800; margin: 0; letter-spacing: -.3px; color: var(--txt); }
   .stats { display: flex; gap: 18px; flex-wrap: wrap; margin-left: auto; }
   .stat { display: flex; flex-direction: column; align-items: center; min-width: 54px; }
   .stat b { font-size: 20px; font-weight: 700; line-height: 1; }
@@ -35,10 +36,15 @@
   }
   button:hover { border-color: var(--accent); }
   button.pause.on { background: var(--voicing); color: #201700; border-color: var(--voicing); }
-  main { padding: 24px; max-width: 1100px; margin: 0 auto; }
-  .col-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--dim); margin: 22px 0 10px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--queued); border-radius: 12px; padding: 14px; }
+  main { padding: 20px 24px; }
+  .board { display: flex; gap: 16px; align-items: flex-start; overflow-x: auto; padding-bottom: 12px; }
+  .column { flex: 0 0 320px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; display: flex; flex-direction: column; max-height: calc(100vh - 190px); }
+  .column-head { padding: 12px 14px; font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--dim); display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--line); border-radius: 14px 14px 0 0; flex: 0 0 auto; }
+  .column-head .dot-status { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .column-head .count { margin-left: auto; background: var(--panel2); padding: 2px 9px; border-radius: 20px; font-size: 11px; color: var(--txt); }
+  .column-body { padding: 10px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex: 1; }
+  .column-empty { color: var(--dim); font-size: 12px; text-align: center; padding: 24px 10px; font-style: italic; }
+  .card { background: var(--panel2); border: 1px solid var(--line); border-left: 3px solid var(--queued); border-radius: 12px; padding: 14px; }
   .card.building { border-left-color: var(--building); }
   .card.voicing { border-left-color: var(--voicing); }
   .card.rendering { border-left-color: var(--rendering); }
@@ -70,7 +76,18 @@
   .actions button { padding: 5px 12px; font-size: 12px; }
   .actions .danger:hover { border-color: var(--failed); }
   .actions .danger.confirm { background: var(--failed); color: #2a0d13; border-color: var(--failed); }
-  video { width: 100%; border-radius: 8px; margin-top: 10px; background: #000; max-height: 340px; }
+  .thumb-wrap { position: relative; margin-top: 10px; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; height: 190px; display: flex; align-items: center; justify-content: center; }
+  .thumb-wrap img { max-width: 100%; max-height: 100%; display: block; }
+  .thumb-wrap video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+  .thumb-wrap .playbtn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+  .thumb-wrap:hover .playbtn { background: rgba(0,0,0,.15); }
+  .playbtn i { width: 54px; height: 54px; border-radius: 50%; background: rgba(0,0,0,.6); border: 1px solid rgba(255,255,255,.25); display: flex; align-items: center; justify-content: center; }
+  .playbtn i::after { content: ""; border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent #fff; margin-left: 3px; }
+  .metarow { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .metatag { font-size: 11px; background: var(--panel); border: 1px solid var(--line); color: var(--dim); padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+  .metatag b { color: var(--txt); font-weight: 600; }
+  .fname { margin-top: 8px; font-size: 11.5px; color: var(--dim); cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fname:hover { color: var(--txt); }
   .empty { color: var(--dim); text-align: center; padding: 60px 20px; font-size: 15px; }
   .empty code { background: var(--panel2); padding: 3px 8px; border-radius: 6px; color: var(--accent); }
   .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--done); display: inline-block; }
@@ -117,7 +134,10 @@
 <div id="paused" class="banner pausedbanner">⏸ PAUSED — nothing is being generated right now. Press <b>Resume</b> (top-right) to start processing.</div>
 <div class="stickytop">
 <header>
-  <h1>Virasat Video <span>Factory</span></h1>
+  <div class="brand">
+    <img class="logo" src="/brand/logo/virasat-logo-full-trimmed.png" alt="Virasat" />
+    <span class="appname">Video Factory</span>
+  </div>
   <div class="stats" id="stats"></div>
   <div class="eta" id="eta"></div>
   <button class="pause" id="pauseBtn" onclick="togglePause()">Pause</button>
@@ -147,6 +167,7 @@ let paused = false;
 let lastManifest = null;
 let lastSig = "";
 const expanded = new Set();
+const playing = new Set(); // done-card ids currently showing the real <video> instead of a poster
 const order = ["building", "rendering", "voicing", "queued", "failed", "done"];
 const labels = { building: "Building", rendering: "Rendering", voicing: "Voicing", queued: "Queued", failed: "Failed", done: "Done" };
 
@@ -202,6 +223,37 @@ async function poll() {
   render(m);
 }
 
+// Pull the fields worth showing as badges out of a job's BRIEF.md text (frontmatter + body).
+const skillLabels = { "faceless-explainer": "Faceless Explainer", "product-launch-video": "Product Launch", "general-video": "General Video", "motion-graphics": "Motion Graphics", "slideshow": "Slideshow" };
+function parseBrief(brief) {
+  if (!brief) return {};
+  const fm = brief.match(/^---\n([\s\S]*?)\n---/);
+  const get = (k) => {
+    if (!fm) return null;
+    const m = fm[1].match(new RegExp(`^${k}:\\s*"?([^"\\n]+?)"?\\s*$`, "m"));
+    return m ? m[1].trim() : null;
+  };
+  const themeM = brief.match(/theme:\s*(light|dark)/i);
+  const angle = get("angle");
+  return {
+    language: get("language"),
+    angle: angle ? angle.split(" (")[0] : null,
+    style: get("style_preset"),
+    theme: themeM ? themeM[1][0].toUpperCase() + themeM[1].slice(1).toLowerCase() : null,
+  };
+}
+function metaTags(j) {
+  const b = parseBrief(j.brief);
+  const tags = [];
+  const skill = skillLabels[j.skill] || j.skill;
+  if (skill) tags.push(`<span class="metatag">Skill: <b>${escapeHtml(skill)}</b></span>`);
+  if (b.theme) tags.push(`<span class="metatag">Theme: <b>${escapeHtml(b.theme)}</b></span>`);
+  if (b.language) tags.push(`<span class="metatag">Lang: <b>${escapeHtml(b.language.toUpperCase())}</b></span>`);
+  if (b.angle) tags.push(`<span class="metatag">Tone: <b>${escapeHtml(b.angle)}</b></span>`);
+  if (b.style) tags.push(`<span class="metatag">Style: <b>${escapeHtml(b.style)}</b></span>`);
+  return tags.length ? `<div class="metarow">${tags.join("")}</div>` : "";
+}
+
 function matchesSearch(j, q) {
   if (!q) return true;
   q = q.toLowerCase();
@@ -214,7 +266,7 @@ function render(m) {
   // ONE change-signature covering everything visible. If nothing changed, touch NOTHING —
   // no header rewrite, no grid rebuild — so the page never flashes and videos keep playing.
   const filterSig = [...activeStatuses].sort().join(",") + "||" + activeFormat + "||" + searchQuery + "||" + sortMode;
-  const sig = m.paused + "||" + m.jobs.map(j => j.id + ":" + j.status).join("|") + "||" + [...expanded].sort().join(",") + "||" + filterSig;
+  const sig = m.paused + "||" + m.jobs.map(j => j.id + ":" + j.status).join("|") + "||" + [...expanded].sort().join(",") + "||" + [...playing].sort().join(",") + "||" + filterSig;
   if (sig === lastSig) return;
   lastSig = sig;
 
@@ -285,15 +337,38 @@ function render(m) {
   }
 
   const now = m.updatedAt;
-  let html = "";
+  let html = '<div class="board">';
   for (const s of order) {
-    const list = byStatus[s];
-    if (!list || !list.length) continue;
-    html += `<div class="col-title">${labels[s]} · ${list.length}</div><div class="grid">`;
-    html += list.map(j => card(j, now)).join("");
-    html += `</div>`;
+    if (!activeStatuses.has(s)) continue;
+    const list = byStatus[s] || [];
+    html += `<div class="column ${s}">
+      <div class="column-head"><span class="dot-status" style="background:var(--${s})"></span>${labels[s]}<span class="count">${list.length}</span></div>
+      <div class="column-body">`;
+    html += list.length ? list.map(j => card(j, now)).join("") : `<div class="column-empty">Nothing here</div>`;
+    html += `</div></div>`;
   }
+  html += "</div>";
+
+  // Rebuilding #main wipes DOM scroll state — save the board's horizontal scroll and
+  // each column's vertical scroll first, then restore after, so an action deep in the
+  // Done column (play, delete, read-more) doesn't yank the view back to Building.
+  const prevBoard = document.querySelector(".board");
+  const prevScrollLeft = prevBoard ? prevBoard.scrollLeft : 0;
+  const prevColScroll = {};
+  document.querySelectorAll(".column").forEach(col => {
+    const key = [...col.classList].find(c => c !== "column");
+    if (key) prevColScroll[key] = col.querySelector(".column-body")?.scrollTop || 0;
+  });
+
   document.getElementById("main").innerHTML = html;
+
+  const newBoard = document.querySelector(".board");
+  if (newBoard) newBoard.scrollLeft = prevScrollLeft;
+  document.querySelectorAll(".column").forEach(col => {
+    const key = [...col.classList].find(c => c !== "column");
+    const body = col.querySelector(".column-body");
+    if (key && body && prevColScroll[key] != null) body.scrollTop = prevColScroll[key];
+  });
 }
 
 function card(j, now) {
@@ -311,8 +386,12 @@ function card(j, now) {
   if (s === "queued") meta = `waiting${j.needsVoice ? " · needs voice" : ""}`;
   if (s === "done") {
     meta = `✓ rendered in ${j.renderSeconds != null ? fmt(j.renderSeconds) : "—"} · → ready-to-post`;
-    body = `<video controls preload="none" poster="/thumbs/${j.id}.jpg" src="/output/${j.id}.mp4"></video>
-      <div class="fname" title="in ~/Desktop/ready-to-post/ — click to copy" onclick="copyName('${j.id}.mp4')">📄 ${j.id}.mp4</div>`;
+    const jid = escapeHtml(j.id);
+    body = playing.has(j.id)
+      ? `<div class="thumb-wrap"><video controls autoplay src="/output/${jid}.mp4"></video></div>`
+      : `<div class="thumb-wrap" onclick="togglePlay('${jid}')"><img src="/thumbs/${jid}.jpg" alt="" /><div class="playbtn"><i></i></div></div>`;
+    body += metaTags(j);
+    body += `<div class="fname" title="in ~/Desktop/ready-to-post/ — click to copy" onclick="copyName('${j.id}.mp4')">📄 ${j.id}.mp4</div>`;
   }
   if (s === "failed") body = `<div class="err">${escapeHtml(j.error || "unknown error")}</div>`;
 
@@ -330,7 +409,7 @@ function card(j, now) {
   else if (s === "done") actions = `<button class="danger" onclick="del('${j.id}',this)">Delete</button>`;
 
   return `<div class="card ${s}">
-    <div class="top">${fmtIcon(j.format)}<span class="title">${escapeHtml(cleanTitle(j.title))}</span><span class="badge ${s}">${s}</span></div>
+    <div class="top">${fmtIcon(j.format)}<span class="title">${escapeHtml(cleanTitle(j.title))}</span></div>
     <div class="meta"><span>${meta}</span>${tag}</div>
     ${briefBlock}
     ${body}
@@ -347,6 +426,7 @@ function fmtIcon(f) {
 }
 function cleanTitle(t) { return String(t).replace(/\s*[\(（]?(?:16:9|9:16)[^)）]*[\)）]?\s*$/i, "").trim() || t; }
 function toggleBrief(id) { expanded.has(id) ? expanded.delete(id) : expanded.add(id); if (lastManifest) render(lastManifest); }
+function togglePlay(id) { playing.add(id); lastSig = ""; if (lastManifest) render(lastManifest); }
 function copyName(name) { navigator.clipboard?.writeText(name); const el = event.target; const t = el.textContent; el.textContent = "📄 copied!"; setTimeout(() => el.textContent = t, 1000); }
 
 // Tick elapsed timers in place — never rebuilds the DOM, so a playing video survives.

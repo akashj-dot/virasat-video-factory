@@ -447,6 +447,7 @@ const server = http.createServer((req, res) => {
   if (p === "/manifest.json") { res.writeHead(200, { "content-type": "application/json", "cache-control": "no-store" }); return res.end(manifestJSON); }
   if (p.startsWith("/output/")) return serveFile(res, path.join(DIR.output, path.basename(p)), MIME[path.extname(p)] || "application/octet-stream", req);
   if (p.startsWith("/thumbs/")) return serveFile(res, path.join(DIR.thumbs, path.basename(p)), "image/jpeg", req);
+  if (p.startsWith("/brand/logo/")) return serveFile(res, path.join(ROOT, "brand", "logo", path.basename(p)), "image/png", req);
   res.writeHead(404); res.end("not found");
 });
 
