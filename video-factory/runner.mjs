@@ -117,9 +117,11 @@ function authoringActive(dir) {
   } catch { return false; }
 }
 
-// Aspect ratio for the little shape icon on the card — from job.json or the folder name.
-function detectFormat(id, cfg) {
-  const s = `${cfg.format || cfg.aspect || ""} ${id || ""}`.toLowerCase();
+// Aspect ratio for the little shape icon on the card — from job.json, the folder name, or
+// (most reliably) the `aspect:` field in BRIEF.md's frontmatter, which every hyperframes
+// project already confirms during intake.
+function detectFormat(id, cfg, brief) {
+  const s = `${cfg.format || cfg.aspect || ""} ${id || ""} ${brief || ""}`.toLowerCase();
   if (/9x16|9-16|9:16|vertical|portrait|1080x1920/.test(s)) return "9:16";
   if (/16x9|16-9|16:9|horizontal|landscape|1920x1080/.test(s)) return "16:9";
   return null;
@@ -145,11 +147,12 @@ function moveDir(from, to) {
 function registerQueued(name, src) {
   const cfg = readJobConfig(src);
   const prev = jobs.get(name);
+  const brief = readBrief(src);
   const job = {
     id: name,
     title: cfg.title || name,
-    brief: readBrief(src),
-    format: detectFormat(name, cfg),
+    brief,
+    format: detectFormat(name, cfg, brief),
     status: "queued",
     dir: src,
     needsVoice: detectNeedsVoice(src, cfg),
@@ -177,14 +180,15 @@ function reconcile() {
         const cfg = readJobConfig(src), brief = readBrief(src);
         if (cfg.title && cfg.title !== existing.title) { existing.title = cfg.title; persist(existing); }
         if (brief && brief !== existing.brief) { existing.brief = brief; persist(existing); }
-        if (!existing.format) { const f = detectFormat(name, cfg); if (f) { existing.format = f; persist(existing); } }
+        if (!existing.format) { const f = detectFormat(name, cfg, brief); if (f) { existing.format = f; persist(existing); } }
         const act = authoringActive(src);
         if (existing.active !== act) { existing.active = act; persist(existing); }
       }
       continue;
     }
     const cfg = readJobConfig(src);
-    const job = { id: name, title: cfg.title || name, brief: readBrief(src), format: detectFormat(name, cfg),
+    const brief2 = readBrief(src);
+    const job = { id: name, title: cfg.title || name, brief: brief2, format: detectFormat(name, cfg, brief2),
       status: "building", active: authoringActive(src), dir: src, createdAt: now(), error: null, outputPath: null, renderSeconds: null };
     jobs.set(name, job);
     log(`building: ${name}`);
@@ -337,7 +341,7 @@ function boot() {
         job.status = "queued";
         job.error = null;
       }
-      if (!job.format) job.format = detectFormat(job.id, {});
+      if (!job.format) job.format = detectFormat(job.id, {}, job.brief);
       jobs.set(job.id, job);
     } catch {}
   }

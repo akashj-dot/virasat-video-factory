@@ -15,8 +15,9 @@
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--txt); font-family: "Outfit", system-ui, sans-serif; }
+  .stickytop { position: sticky; top: 0; z-index: 5; }
   header {
-    position: sticky; top: 0; z-index: 5; background: rgba(15,17,21,.92); backdrop-filter: blur(8px);
+    background: rgba(15,17,21,.92); backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line); padding: 16px 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
   }
   h1 { font-size: 20px; font-weight: 800; margin: 0; letter-spacing: -.3px; }
@@ -80,11 +81,41 @@
   .pausedbanner { background: #2a2410; color: #e8c766; border-bottom-color: var(--voicing); }
   .pausedbanner b { background: #4a3f14; }
   .idle { color: var(--dim); font-style: italic; }
+
+  .toolbar {
+    background: rgba(15,17,21,.96); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line); padding: 12px 24px; display: flex; align-items: center;
+    gap: 10px; flex-wrap: wrap;
+  }
+  .search {
+    font-family: inherit; font-size: 13px; color: var(--txt); background: var(--panel2);
+    border: 1px solid var(--line); border-radius: 9px; padding: 8px 12px 8px 32px; width: 220px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="%239aa2b1" stroke-width="2"><circle cx="6" cy="6" r="5"/><line x1="10" y1="10" x2="13.5" y2="13.5"/></svg>');
+    background-repeat: no-repeat; background-position: 10px center;
+  }
+  .search:focus { outline: none; border-color: var(--accent); }
+  .search::placeholder { color: var(--dim); }
+  .chipgroup { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip {
+    font-family: inherit; font-size: 12px; font-weight: 600; border: 1px solid var(--line);
+    background: var(--panel2); color: var(--dim); padding: 6px 12px; border-radius: 20px; cursor: pointer;
+  }
+  .chip:hover { color: var(--txt); }
+  .chip.on { color: var(--txt); border-color: var(--accent); background: rgba(108,140,255,.15); }
+  .sep { width: 1px; height: 20px; background: var(--line); }
+  select.sort {
+    font-family: inherit; font-size: 12px; font-weight: 600; color: var(--txt); background: var(--panel2);
+    border: 1px solid var(--line); border-radius: 9px; padding: 7px 10px; cursor: pointer;
+  }
+  .clearfilt { font-size: 12px; color: var(--accent); background: none; border: none; padding: 4px 6px; cursor: pointer; font-weight: 600; }
+  .clearfilt:hover { text-decoration: underline; }
+  .shown { color: var(--dim); font-size: 12px; margin-left: auto; white-space: nowrap; }
 </style>
 </head>
 <body>
 <div id="offline" class="banner">⚠ Can't reach the runner. Double-click <b>start.command</b> in the video-factory folder — this page reconnects on its own.</div>
 <div id="paused" class="banner pausedbanner">⏸ PAUSED — nothing is being generated right now. Press <b>Resume</b> (top-right) to start processing.</div>
+<div class="stickytop">
 <header>
   <h1>Virasat Video <span>Factory</span></h1>
   <div class="stats" id="stats"></div>
@@ -92,6 +123,21 @@
   <button class="pause" id="pauseBtn" onclick="togglePause()">Pause</button>
   <span id="conn" title="connection"><span class="dot"></span></span>
 </header>
+<div class="toolbar">
+  <input class="search" id="search" type="text" placeholder="Search title or brief…" oninput="onFilterChange()" />
+  <div class="chipgroup" id="statusChips"></div>
+  <div class="sep"></div>
+  <div class="chipgroup" id="formatChips"></div>
+  <div class="sep"></div>
+  <select class="sort" id="sortSel" onchange="onFilterChange()">
+    <option value="newest">Done: Newest first</option>
+    <option value="oldest">Done: Oldest first</option>
+    <option value="duration">Done: Longest render</option>
+  </select>
+  <button class="clearfilt" id="clearBtn" onclick="clearFilters()" style="display:none">Clear filters</button>
+  <span class="shown" id="shown"></span>
+</div>
+</div>
 <main id="main">
   <div class="empty">Connecting to runner…</div>
 </main>
@@ -103,6 +149,43 @@ let lastSig = "";
 const expanded = new Set();
 const order = ["building", "rendering", "voicing", "queued", "failed", "done"];
 const labels = { building: "Building", rendering: "Rendering", voicing: "Voicing", queued: "Queued", failed: "Failed", done: "Done" };
+
+// ---- filters (search / status / format / sort) ----
+const activeStatuses = new Set(order); // all on by default
+let activeFormat = "all"; // "all" | "9:16" | "16:9"
+let searchQuery = "";
+let sortMode = "newest";
+
+function renderChips() {
+  document.getElementById("statusChips").innerHTML = order.map(s =>
+    `<button class="chip${activeStatuses.has(s) ? " on" : ""}" onclick="toggleStatus('${s}')">${labels[s]}</button>`
+  ).join("");
+  document.getElementById("formatChips").innerHTML = ["all", "9:16", "16:9"].map(f =>
+    `<button class="chip${activeFormat === f ? " on" : ""}" onclick="setFormat('${f}')">${f === "all" ? "All formats" : f}</button>`
+  ).join("");
+}
+function toggleStatus(s) {
+  activeStatuses.has(s) ? activeStatuses.delete(s) : activeStatuses.add(s);
+  if (activeStatuses.size === 0) order.forEach(x => activeStatuses.add(x)); // never let it go fully empty
+  onFilterChange();
+}
+function setFormat(f) { activeFormat = f; onFilterChange(); }
+function clearFilters() {
+  order.forEach(s => activeStatuses.add(s));
+  activeFormat = "all"; searchQuery = ""; sortMode = "newest";
+  document.getElementById("search").value = "";
+  document.getElementById("sortSel").value = "newest";
+  onFilterChange();
+}
+function filtersActive() {
+  return activeStatuses.size !== order.length || activeFormat !== "all" || searchQuery.trim() !== "";
+}
+function onFilterChange() {
+  searchQuery = document.getElementById("search").value;
+  sortMode = document.getElementById("sortSel").value;
+  lastSig = ""; // force a rebuild even though the manifest itself hasn't changed
+  if (lastManifest) render(lastManifest);
+}
 
 function fmt(s) { s = Math.max(0, Math.round(s)); const m = Math.floor(s / 60); return m ? `${m}m ${s % 60}s` : `${s}s`; }
 
@@ -119,11 +202,19 @@ async function poll() {
   render(m);
 }
 
+function matchesSearch(j, q) {
+  if (!q) return true;
+  q = q.toLowerCase();
+  return String(j.title || "").toLowerCase().includes(q) || String(j.brief || "").toLowerCase().includes(q) || String(j.id || "").toLowerCase().includes(q);
+}
+
 function render(m) {
   lastManifest = m;
+  renderChips();
   // ONE change-signature covering everything visible. If nothing changed, touch NOTHING —
   // no header rewrite, no grid rebuild — so the page never flashes and videos keep playing.
-  const sig = m.paused + "||" + m.jobs.map(j => j.id + ":" + j.status).join("|") + "||" + [...expanded].sort().join(",");
+  const filterSig = [...activeStatuses].sort().join(",") + "||" + activeFormat + "||" + searchQuery + "||" + sortMode;
+  const sig = m.paused + "||" + m.jobs.map(j => j.id + ":" + j.status).join("|") + "||" + [...expanded].sort().join(",") + "||" + filterSig;
   if (sig === lastSig) return;
   lastSig = sig;
 
@@ -163,11 +254,36 @@ function render(m) {
   if (!m.jobs.length) {
     document.getElementById("main").innerHTML =
       `<div class="empty">No jobs yet.<br><br>Tell Claude a video idea — it'll appear here as <b>Building</b> instantly.</div>`;
+    document.getElementById("shown").textContent = "";
+    document.getElementById("clearBtn").style.display = "none";
+    return;
+  }
+
+  document.getElementById("clearBtn").style.display = filtersActive() ? "" : "none";
+
+  const filtered = m.jobs.filter(j =>
+    activeStatuses.has(j.status) &&
+    (activeFormat === "all" || j.format === activeFormat) &&
+    matchesSearch(j, searchQuery)
+  );
+  document.getElementById("shown").textContent = filtersActive() ? `${filtered.length} of ${m.jobs.length} shown` : "";
+
+  if (!filtered.length) {
+    document.getElementById("main").innerHTML =
+      `<div class="empty">No videos match your filters.<br><br><button class="clearfilt" onclick="clearFilters()" style="font-size:14px">Clear filters</button></div>`;
     return;
   }
 
   const byStatus = {};
-  for (const j of m.jobs) (byStatus[j.status] = byStatus[j.status] || []).push(j);
+  for (const j of filtered) (byStatus[j.status] = byStatus[j.status] || []).push(j);
+
+  // Sort only applies to the Done column — other columns already reflect live pipeline order.
+  if (byStatus.done) {
+    const dir = { newest: 1, oldest: -1 }[sortMode];
+    if (sortMode === "duration") byStatus.done.sort((a, b) => (b.renderSeconds || 0) - (a.renderSeconds || 0));
+    else byStatus.done.sort((a, b) => dir * ((b.finishedAt || 0) - (a.finishedAt || 0)));
+  }
+
   const now = m.updatedAt;
   let html = "";
   for (const s of order) {
