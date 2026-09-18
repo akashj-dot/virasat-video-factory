@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1789730093916,
+  "updatedAt": 1789731196471,
   "paused": false,
   "concurrency": 3,
   "estRenderS": 200,
@@ -8,10 +8,24 @@
     "voicing": 0,
     "voiced": 0,
     "rendering": 0,
-    "done": 5,
-    "failed": 0
+    "done": 4,
+    "failed": 0,
+    "building": 1
   },
   "jobs": [
+    {
+      "id": "will-you-never-made",
+      "title": "The Will You Never Made",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Dying without a will doesn't mean your closest people automatically inherit — the law hands your assets out by a fixed formula, and real Indian families have spent years in court and had accounts frozen because that formula doesn't fit how their family actually looks.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: general Indian adults who haven't made a will, or assume they don't need one yet\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, not a cold documentary voice)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"The Will You Never Made\")\ninto a vertical cautionary/consequence-led explainer reel, delivered with an\nempathetic, human-story-anchored voice. Source: 5-slide carousel export\nsupplied directly by the user as PNGs\n(`video-factory/incoming/IG049-the-will-you-never-made/1.png` ... `5.png`).\n\nPer `brand/starter-questions.md` branch 1 (convert existing IG post): follow\nthe source carousel's own structure/content rather than writing from\nscratch, verify the un",
+      "format": "9:16",
+      "status": "building",
+      "active": true,
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/building/will-you-never-made",
+      "createdAt": 1789731126439,
+      "error": null,
+      "outputPath": null,
+      "renderSeconds": null
+    },
     {
       "id": "shares-demat-transmission",
       "title": "Shares, Demat and the Transmission Process",
@@ -74,27 +88,6 @@
       "renderStartedAt": 1787902759638,
       "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/financial-inventory-checklist-en/renders/financial-inventory-checklist-en.mp4",
       "finishedAt": 1787902851917
-    },
-    {
-      "id": "financial-inventory-checklist",
-      "title": "How to Create a Financial Inventory From Scratch",
-      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Build a simple financial inventory today, so your family can find everything when it matters.\"\ndestination: instagram-reel\naspect: 1080x1920\nlanguage: hi\naudience: \"Indian adults, 25-45, who haven't organized their family's financial records\"\nlength: 40s\nangle: how-to\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"How to create a financial\ninventory from scratch\") into a vertical checklist-style explainer reel.\nPractical, calm, no fear-mongering — walks the viewer through why an\ninventory matters, then exactly how to build one. Narration in Hindi.\n\n## Assets\n\nNone supplied as images — full carousel content was captured as text from\nuser-shared screenshots (Canva connector access was denied for the design\n`DAHP02wonaA`, so the user shared PNGs directly instead).\n\n## Customizations\n\n- Follow the source carousel's own content/copy exactly rather than writing\n  from scratch (per starter-questions.md branch 1 — \"convert existing IG\n  post\").\n- Scene order (from the carousel, resequenced for video pacing):\n  1. Cover/hook — \"How to cre",
-      "format": "9:16",
-      "status": "done",
-      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/financial-inventory-checklist",
-      "needsVoice": false,
-      "skill": "faceless-explainer",
-      "renderArgs": [
-        "--quality",
-        "high"
-      ],
-      "createdAt": 1787851548680,
-      "error": null,
-      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/financial-inventory-checklist.mp4",
-      "renderSeconds": 132,
-      "renderStartedAt": 1787883458322,
-      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/financial-inventory-checklist/renders/financial-inventory-checklist.mp4",
-      "finishedAt": 1787883590589
     },
     {
       "id": "unclaimed-assets-india",
