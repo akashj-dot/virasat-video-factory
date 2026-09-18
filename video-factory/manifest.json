@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1789764516410,
+  "updatedAt": 1789770024827,
   "paused": false,
   "concurrency": 3,
   "estRenderS": 200,
@@ -29,19 +29,19 @@
       "error": null,
       "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/nri-families-india-asset-maze.mp4",
       "renderSeconds": 39,
-      "renderStartedAt": 1789761446269,
+      "renderStartedAt": 1789768372397,
       "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/nri-families-india-asset-maze/renders/nri-families-india-asset-maze.mp4",
-      "finishedAt": 1789761484880
+      "finishedAt": 1789768411110
     },
     {
       "id": "joint-family-split-over-property",
-      "title": "joint-family-split-over-property",
+      "title": "The Joint Family That Split Over Property",
       "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"When a family holds ancestral or jointly owned property and one member dies without a will, there is no automatic single owner. Under Hindu succession law, that property passes to all legal heirs as shared, undivided owners at once, and any one of them can force a court partition. That is how one missing document turns a shared home into a years-long court case. Writing a will costs a few thousand rupees today; leaving none can cost a family years, lakhs in legal fees, and the relationship itself.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: Indian families with jointly-held or ancestral property, general audience not legal experts\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, reconciled with a real-story hook)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"The Joint Family That\nSplit Over Property, Because There Was No Will\") into a vertical\nempathetic/human-story-anchored explainer reel. Source: 4-slide carousel\nexport supplied directly by the user as PNGs\n(`v",
       "format": "9:16",
       "status": "done",
       "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/joint-family-split-over-property",
-      "needsVoice": true,
-      "skill": "product-launch-video",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
       "renderArgs": [
         "--quality",
         "high"
@@ -50,21 +50,19 @@
       "error": null,
       "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/joint-family-split-over-property.mp4",
       "renderSeconds": 103,
-      "startedAt": 1789755706799,
-      "voicedAt": 1789755799517,
-      "renderStartedAt": 1789755799518,
+      "renderStartedAt": 1789767682054,
       "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/joint-family-split-over-property/renders/joint-family-split-over-property.mp4",
-      "finishedAt": 1789755902147
+      "finishedAt": 1789767785009
     },
     {
       "id": "loans-outlive-the-borrower",
-      "title": "loans-outlive-the-borrower",
+      "title": "When Loans Outlive the Borrower",
       "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"A loan does not simply vanish when the borrower dies. Secured debt (like a home loan) can be recovered from the estate or the collateral, but unsecured debt generally cannot touch heirs personally, unless they co-signed as a co-borrower or guarantor. Knowing which is which, and writing it down in advance, protects a grieving family from EMI pressure they were never legally meant to carry.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: Indian families dealing with a deceased relative's debts/loans, general audience not legal experts\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, not a cold documentary voice)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"When Loans Outlive the\nBorrower\") into a vertical cautionary/consequence-led explainer reel,\ndelivered with an empathetic, human-story-anchored voice. Source: 5-slide\ncarousel export supplied directly by the user as PNGs\n(`video-factory/incoming/IG055-when-loans-outlive-the-borrower/1.png` ...\n`5.png`).\n\nPer `brand/",
       "format": "9:16",
       "status": "done",
       "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/loans-outlive-the-borrower",
-      "needsVoice": true,
-      "skill": "product-launch-video",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
       "renderArgs": [
         "--quality",
         "high"
@@ -72,12 +70,10 @@
       "createdAt": 1789753388969,
       "error": null,
       "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/loans-outlive-the-borrower.mp4",
-      "renderSeconds": 97,
-      "startedAt": 1789754491744,
-      "voicedAt": 1789754582977,
-      "renderStartedAt": 1789754582979,
+      "renderSeconds": 96,
+      "renderStartedAt": 1789767682051,
       "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/loans-outlive-the-borrower/renders/loans-outlive-the-borrower.mp4",
-      "finishedAt": 1789754680160
+      "finishedAt": 1789767778022
     },
     {
       "id": "insurance-agent-is-the-scammer",
@@ -95,10 +91,10 @@
       "createdAt": 1789734546616,
       "error": null,
       "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/insurance-agent-is-the-scammer.mp4",
-      "renderSeconds": 89,
-      "renderStartedAt": 1789759443159,
+      "renderSeconds": 84,
+      "renderStartedAt": 1789769841221,
       "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/insurance-agent-is-the-scammer/renders/insurance-agent-is-the-scammer.mp4",
-      "finishedAt": 1789759532370
+      "finishedAt": 1789769925665
     },
     {
       "id": "hospital-billed-surgeries-never-happened",
@@ -123,13 +119,13 @@
     },
     {
       "id": "women-financial-inheritance-india",
-      "title": "women-financial-inheritance-india",
+      "title": "Women and Financial Inheritance in India",
       "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Since 2005, daughters in Hindu families have had an equal legal right to ancestral property, but that right rarely makes it onto the actual property papers, and most women are never told to ask.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: Indian women and families navigating inheritance, general audience not legal experts\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, not a cold documentary voice)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"Women and Financial\nInheritance in India\") into a vertical cautionary/consequence-led explainer\nreel, delivered with an empathetic, human-story-anchored voice. Source:\n5-slide carousel export supplied directly by the user as PNGs\n(`video-factory/incoming/IG052-women-financial-inheritance-india/1.png` ...\n`5.png`).\n\nPer `brand/starter-questions.md` branch 1 (convert existing IG post): follow\nthe source carousel's own structure/content rather than writing from\nscratch, verify the underlying legal claims via public research r",
       "format": "9:16",
       "status": "done",
       "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/women-financial-inheritance-india",
-      "needsVoice": true,
-      "skill": "product-launch-video",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
       "renderArgs": [
         "--quality",
         "high"
@@ -137,12 +133,10 @@
       "createdAt": 1789732218993,
       "error": null,
       "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/women-financial-inheritance-india.mp4",
-      "renderSeconds": 99,
-      "startedAt": 1789733105450,
-      "voicedAt": 1789733199563,
-      "renderStartedAt": 1789733199565,
+      "renderSeconds": 102,
+      "renderStartedAt": 1789769923252,
       "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/women-financial-inheritance-india/renders/women-financial-inheritance-india.mp4",
-      "finishedAt": 1789733298311
+      "finishedAt": 1789770024826
     },
     {
       "id": "will-you-never-made",
@@ -223,10 +217,10 @@
       "createdAt": 1787885107214,
       "error": null,
       "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/financial-inventory-checklist-en.mp4",
-      "renderSeconds": 92,
-      "renderStartedAt": 1787902759638,
+      "renderSeconds": 89,
+      "renderStartedAt": 1789767245864,
       "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/financial-inventory-checklist-en/renders/financial-inventory-checklist-en.mp4",
-      "finishedAt": 1787902851917
+      "finishedAt": 1789767335074
     },
     {
       "id": "unclaimed-assets-india",
