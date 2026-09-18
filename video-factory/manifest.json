@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1789731196471,
+  "updatedAt": 1789762947708,
   "paused": false,
   "concurrency": 3,
   "estRenderS": 200,
@@ -8,23 +8,162 @@
     "voicing": 0,
     "voiced": 0,
     "rendering": 0,
-    "done": 4,
-    "failed": 0,
-    "building": 1
+    "done": 11,
+    "failed": 0
   },
   "jobs": [
+    {
+      "id": "nri-families-india-asset-maze",
+      "title": "NRI Families and the India Asset Maze",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Indian law governs Indian assets no matter where you live, and five specific checks close the gap distance opens up.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: \"NRI individuals and families with assets/parents/property in India, general audience not legal/tax experts\"\nlength: 45-60s\nangle: checklist (delivered with a practical/checklist-guide narration voice, not empathetic/human-story)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nRebuild of a prior, now-deleted attempt at the same topic. Convert an\nexisting Virasat Instagram carousel post (\"NRI Families and the India Asset\nMaze\") into a vertical explainer reel. Per the user's explicit direction,\nthis rebuild deliberately changes tone from the prior attempt: the topic\n(RBI/FEMA rules, PoA, probate, share transmission mechanics) is a checklist\nof distinct bureaucratic mechanisms, not a human-story arc, so this build\nuses **Practical / Checklist-guide** tone, structured as a numbered\nhere's-what-to-check sequence rather than a narrative arc.\n\nSource: 5-slide carousel export supplied directly by the user as PNGs\n(`v",
+      "format": "9:16",
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/nri-families-india-asset-maze",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1789759245057,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/nri-families-india-asset-maze.mp4",
+      "renderSeconds": 39,
+      "renderStartedAt": 1789761446269,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/nri-families-india-asset-maze/renders/nri-families-india-asset-maze.mp4",
+      "finishedAt": 1789761484880
+    },
+    {
+      "id": "joint-family-split-over-property",
+      "title": "joint-family-split-over-property",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"When a family holds ancestral or jointly owned property and one member dies without a will, there is no automatic single owner. Under Hindu succession law, that property passes to all legal heirs as shared, undivided owners at once, and any one of them can force a court partition. That is how one missing document turns a shared home into a years-long court case. Writing a will costs a few thousand rupees today; leaving none can cost a family years, lakhs in legal fees, and the relationship itself.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: Indian families with jointly-held or ancestral property, general audience not legal experts\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, reconciled with a real-story hook)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"The Joint Family That\nSplit Over Property, Because There Was No Will\") into a vertical\nempathetic/human-story-anchored explainer reel. Source: 4-slide carousel\nexport supplied directly by the user as PNGs\n(`v",
+      "format": "9:16",
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/joint-family-split-over-property",
+      "needsVoice": true,
+      "skill": "product-launch-video",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1789754661881,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/joint-family-split-over-property.mp4",
+      "renderSeconds": 103,
+      "startedAt": 1789755706799,
+      "voicedAt": 1789755799517,
+      "renderStartedAt": 1789755799518,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/joint-family-split-over-property/renders/joint-family-split-over-property.mp4",
+      "finishedAt": 1789755902147
+    },
+    {
+      "id": "loans-outlive-the-borrower",
+      "title": "loans-outlive-the-borrower",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"A loan does not simply vanish when the borrower dies. Secured debt (like a home loan) can be recovered from the estate or the collateral, but unsecured debt generally cannot touch heirs personally, unless they co-signed as a co-borrower or guarantor. Knowing which is which, and writing it down in advance, protects a grieving family from EMI pressure they were never legally meant to carry.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: Indian families dealing with a deceased relative's debts/loans, general audience not legal experts\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, not a cold documentary voice)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"When Loans Outlive the\nBorrower\") into a vertical cautionary/consequence-led explainer reel,\ndelivered with an empathetic, human-story-anchored voice. Source: 5-slide\ncarousel export supplied directly by the user as PNGs\n(`video-factory/incoming/IG055-when-loans-outlive-the-borrower/1.png` ...\n`5.png`).\n\nPer `brand/",
+      "format": "9:16",
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/loans-outlive-the-borrower",
+      "needsVoice": true,
+      "skill": "product-launch-video",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1789753388969,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/loans-outlive-the-borrower.mp4",
+      "renderSeconds": 97,
+      "startedAt": 1789754491744,
+      "voicedAt": 1789754582977,
+      "renderStartedAt": 1789754582979,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/loans-outlive-the-borrower/renders/loans-outlive-the-borrower.mp4",
+      "finishedAt": 1789754680160
+    },
+    {
+      "id": "insurance-agent-is-the-scammer",
+      "title": "When Your Insurance Agent is the Scammer",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"A rogue agent can pocket your premium in cash and never deposit it, your policy lapses silently while you keep getting reassuring calls and fake receipts, and organized rings have taken this as far as forged death certificates, but one habit closes the gap: verify your policy directly with the insurer, never through the agent.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: Indian policyholders and families buying/holding insurance, general audience not legal experts\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, not a cold documentary voice)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"When Your Insurance\nAgent is the Scammer\") into a vertical cautionary/protective explainer reel,\ndelivered with an empathetic, human-story-anchored voice. Source: 5-slide\ncarousel export supplied directly by the user as PNGs\n(`video-factory/incoming/IG035-insurance-agent-is-the-scammer/1.png` ...\n`5.png`). Fourth video of tonight's batch of 4; the prior three\n(`will-you-never-made`",
+      "format": "9:16",
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/insurance-agent-is-the-scammer",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1789734546616,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/insurance-agent-is-the-scammer.mp4",
+      "renderSeconds": 89,
+      "renderStartedAt": 1789759443159,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/insurance-agent-is-the-scammer/renders/insurance-agent-is-the-scammer.mp4",
+      "finishedAt": 1789759532370
+    },
+    {
+      "id": "hospital-billed-surgeries-never-happened",
+      "title": "The Hospital That Billed for Surgeries That Never Happened",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"A real Mumbai insurance ring billed hospitals for surgeries that never happened, and it stayed hidden until one policyholder questioned their bill, which is exactly the habit that protects your own family.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: Indian families dealing with hospital admissions/insurance claims, general audience not legal/medical experts\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, not a cold documentary voice)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"The Hospital That\nBilled for Surgeries That Never Happened\") into a vertical\ncautionary/consequence-led explainer reel, delivered with an empathetic,\nhuman-story-anchored voice. Source: 4-slide carousel export supplied\ndirectly by the user as PNGs\n(`video-factory/incoming/IG047-hospital-billed-surgeries-never-happened/1.png`\n... `4.png`).\n\nPer `brand/starter-questions.md` branch 1 (convert existing IG post): follow\nthe source carousel's own structure/content rather than writing from\nscra",
+      "format": "9:16",
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/hospital-billed-surgeries-never-happened",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1789733277588,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/hospital-billed-surgeries-never-happened.mp4",
+      "renderSeconds": 91,
+      "renderStartedAt": 1789734378473,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/hospital-billed-surgeries-never-happened/renders/hospital-billed-surgeries-never-happened.mp4",
+      "finishedAt": 1789734469414
+    },
+    {
+      "id": "women-financial-inheritance-india",
+      "title": "women-financial-inheritance-india",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Since 2005, daughters in Hindu families have had an equal legal right to ancestral property, but that right rarely makes it onto the actual property papers, and most women are never told to ask.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: Indian women and families navigating inheritance, general audience not legal experts\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, not a cold documentary voice)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"Women and Financial\nInheritance in India\") into a vertical cautionary/consequence-led explainer\nreel, delivered with an empathetic, human-story-anchored voice. Source:\n5-slide carousel export supplied directly by the user as PNGs\n(`video-factory/incoming/IG052-women-financial-inheritance-india/1.png` ...\n`5.png`).\n\nPer `brand/starter-questions.md` branch 1 (convert existing IG post): follow\nthe source carousel's own structure/content rather than writing from\nscratch, verify the underlying legal claims via public research r",
+      "format": "9:16",
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/women-financial-inheritance-india",
+      "needsVoice": true,
+      "skill": "product-launch-video",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1789732218993,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/women-financial-inheritance-india.mp4",
+      "renderSeconds": 99,
+      "startedAt": 1789733105450,
+      "voicedAt": 1789733199563,
+      "renderStartedAt": 1789733199565,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/women-financial-inheritance-india/renders/women-financial-inheritance-india.mp4",
+      "finishedAt": 1789733298311
+    },
     {
       "id": "will-you-never-made",
       "title": "The Will You Never Made",
       "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Dying without a will doesn't mean your closest people automatically inherit — the law hands your assets out by a fixed formula, and real Indian families have spent years in court and had accounts frozen because that formula doesn't fit how their family actually looks.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: general Indian adults who haven't made a will, or assume they don't need one yet\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, not a cold documentary voice)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"The Will You Never Made\")\ninto a vertical cautionary/consequence-led explainer reel, delivered with an\nempathetic, human-story-anchored voice. Source: 5-slide carousel export\nsupplied directly by the user as PNGs\n(`video-factory/incoming/IG049-the-will-you-never-made/1.png` ... `5.png`).\n\nPer `brand/starter-questions.md` branch 1 (convert existing IG post): follow\nthe source carousel's own structure/content rather than writing from\nscratch, verify the un",
       "format": "9:16",
-      "status": "building",
-      "active": true,
-      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/building/will-you-never-made",
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/will-you-never-made",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
       "createdAt": 1789731126439,
       "error": null,
-      "outputPath": null,
-      "renderSeconds": null
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/will-you-never-made.mp4",
+      "renderSeconds": 87,
+      "renderStartedAt": 1789762860996,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/will-you-never-made/renders/will-you-never-made.mp4",
+      "finishedAt": 1789762947708
     },
     {
       "id": "shares-demat-transmission",
@@ -42,10 +181,10 @@
       "createdAt": 1789726819056,
       "error": null,
       "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/shares-demat-transmission.mp4",
-      "renderSeconds": 90,
-      "renderStartedAt": 1789727621483,
+      "renderSeconds": 96,
+      "renderStartedAt": 1789762204658,
       "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/shares-demat-transmission/renders/shares-demat-transmission.mp4",
-      "finishedAt": 1789727711214
+      "finishedAt": 1789762300960
     },
     {
       "id": "epf-money-left-behind",

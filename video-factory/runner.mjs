@@ -117,6 +117,16 @@ function authoringActive(dir) {
   } catch { return false; }
 }
 
+// Which hyperframes workflow rendered this project — from job.json, or (most reliably) the
+// `workflow:` field in BRIEF.md's frontmatter, which names the exact skill package that built
+// it. Falls back to the old STORYBOARD.md heuristic only for legacy projects with neither.
+function detectSkill(cfg, brief) {
+  if (cfg.skill) return cfg.skill;
+  const m = brief && brief.match(/^workflow:\s*(\S+)/m);
+  if (m) return m[1];
+  return null;
+}
+
 // Aspect ratio for the little shape icon on the card — from job.json, the folder name, or
 // (most reliably) the `aspect:` field in BRIEF.md's frontmatter, which every hyperframes
 // project already confirms during intake.
@@ -156,7 +166,7 @@ function registerQueued(name, src) {
     status: "queued",
     dir: src,
     needsVoice: detectNeedsVoice(src, cfg),
-    skill: cfg.skill || (fs.existsSync(path.join(src, "STORYBOARD.md")) ? "product-launch-video" : null),
+    skill: detectSkill(cfg, brief) ?? (fs.existsSync(path.join(src, "STORYBOARD.md")) ? "product-launch-video" : null),
     renderArgs: Array.isArray(cfg.renderArgs) ? cfg.renderArgs : ["--quality", "high"],
     createdAt: prev ? prev.createdAt : now(),
     error: null,
