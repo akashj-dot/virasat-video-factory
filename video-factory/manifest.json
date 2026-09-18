@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1788584462572,
+  "updatedAt": 1789727711215,
   "paused": false,
   "concurrency": 3,
   "estRenderS": 200,
@@ -8,10 +8,31 @@
     "voicing": 0,
     "voiced": 0,
     "rendering": 0,
-    "done": 4,
+    "done": 5,
     "failed": 0
   },
   "jobs": [
+    {
+      "id": "shares-demat-transmission",
+      "title": "Shares, Demat and the Transmission Process",
+      "brief": "---\nworkflow: faceless-explainer\nflow: automation\nstoryboard: no\nmessage: \"Your demat account, unlike your bank account, probably has no nominee, and that gap can freeze your family's shares in a legal battle.\"\ndestination: reels\naspect: 1080x1920\nlanguage: en\naudience: \"general Indian retail investors/demat account holders, not experts\"\nlength: 45-60s\nangle: cautionary (delivered with empathetic, human-story-anchored narration voice, not a cold documentary voice)\nnarration: yes\nstyle_preset: virasat-brand\nvoice: cloned\n---\n\n## Intent\n\nConvert an existing Virasat Instagram carousel post (\"Shares, Demat and the\nTransmission Process\") into a vertical cautionary/consequence-led explainer\nreel, delivered with an empathetic, human-story-anchored voice rather than a\ncold cautionary-documentary tone. Source: 5-slide carousel export supplied\ndirectly by the user as PNGs\n(`video-factory/incoming/IG059-shares-demat-transmission/1.png` ... `5.png`).\n\nPer `brand/starter-questions.md` branch 1 (convert existing IG post): follow\nthe source carousel's own structure/content rather than writing from\nscratch, but verify the underlying facts via public research rather than\ntreating the carousel's cla",
+      "format": null,
+      "status": "done",
+      "dir": "/Users/akash/Desktop/Virasat Video Factory/video-factory/done/shares-demat-transmission",
+      "needsVoice": false,
+      "skill": "faceless-explainer",
+      "renderArgs": [
+        "--quality",
+        "high"
+      ],
+      "createdAt": 1789726819056,
+      "error": null,
+      "outputPath": "/Users/akash/Desktop/Virasat Video Factory/video-factory/output/shares-demat-transmission.mp4",
+      "renderSeconds": 90,
+      "renderStartedAt": 1789727621483,
+      "renderOut": "/Users/akash/Desktop/Virasat Video Factory/video-factory/work/shares-demat-transmission/renders/shares-demat-transmission.mp4",
+      "finishedAt": 1789727711214
+    },
     {
       "id": "epf-money-left-behind",
       "title": "EPF and the Money Left Behind",
