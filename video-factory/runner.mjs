@@ -117,6 +117,16 @@ function authoringActive(dir) {
   } catch { return false; }
 }
 
+// Which hyperframes workflow rendered this project — from job.json, or (most reliably) the
+// `workflow:` field in BRIEF.md's frontmatter, which names the exact skill package that built
+// it. Falls back to the old STORYBOARD.md heuristic only for legacy projects with neither.
+function detectSkill(cfg, brief) {
+  if (cfg.skill) return cfg.skill;
+  const m = brief && brief.match(/^workflow:\s*(\S+)/m);
+  if (m) return m[1];
+  return null;
+}
+
 // Aspect ratio for the little shape icon on the card — from job.json, the folder name, or
 // (most reliably) the `aspect:` field in BRIEF.md's frontmatter, which every hyperframes
 // project already confirms during intake.
@@ -156,7 +166,7 @@ function registerQueued(name, src) {
     status: "queued",
     dir: src,
     needsVoice: detectNeedsVoice(src, cfg),
-    skill: cfg.skill || (fs.existsSync(path.join(src, "STORYBOARD.md")) ? "product-launch-video" : null),
+    skill: detectSkill(cfg, brief) ?? (fs.existsSync(path.join(src, "STORYBOARD.md")) ? "product-launch-video" : null),
     renderArgs: Array.isArray(cfg.renderArgs) ? cfg.renderArgs : ["--quality", "high"],
     createdAt: prev ? prev.createdAt : now(),
     error: null,
@@ -257,7 +267,10 @@ function startRenders() {
     job.renderOut = outAbs;
     const args = ["hyperframes@latest", "render", renderDir, ...(job.skill ? [`--skill=${job.skill}`] : []),
       ...job.renderArgs, "--output", outAbs];
-    const child = spawn("npx", args, { cwd: job.dir });
+    // Windows: npx is npx.cmd and needs a shell; paths contain spaces, so quote them.
+    const child = process.platform === "win32"
+      ? spawn("npx", args.map((a) => (/[\s"]/.test(a) ? `"${a.replace(/"/g, '\\"')}"` : a)), { cwd: job.dir, shell: true })
+      : spawn("npx", args, { cwd: job.dir });
     trackChild(job, child, (ok) => {
       renderCount--;
       if (ok) finishRender(job, outAbs);
@@ -437,6 +450,7 @@ const server = http.createServer((req, res) => {
   if (p === "/manifest.json") { res.writeHead(200, { "content-type": "application/json", "cache-control": "no-store" }); return res.end(manifestJSON); }
   if (p.startsWith("/output/")) return serveFile(res, path.join(DIR.output, path.basename(p)), MIME[path.extname(p)] || "application/octet-stream", req);
   if (p.startsWith("/thumbs/")) return serveFile(res, path.join(DIR.thumbs, path.basename(p)), "image/jpeg", req);
+  if (p.startsWith("/brand/logo/")) return serveFile(res, path.join(ROOT, "brand", "logo", path.basename(p)), "image/png", req);
   res.writeHead(404); res.end("not found");
 });
 

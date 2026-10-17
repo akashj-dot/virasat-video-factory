@@ -101,6 +101,15 @@ something a script enforces automatically:
   run as a build-blocking bug, not a thing to shrug off, and verify
   `audio_meta.json`'s `sfx[]` array is non-empty (when the storyboard names
   any cues) before rendering.
+- **`job.json`, caption wiring, audio-duration integrity, and card-overflow
+  layout are all build-blocking checks now, not optional polish either.**
+  See the root `CLAUDE.md`'s "Mandatory pre-render checklist" — four
+  separate confirmed 2026-09-19 incidents (missing `job.json` causing skill
+  misdetection, captions built but never referenced in `index.html`,
+  regenerated voice audio left `audio_meta.json`/`index.html` timing stale
+  and truncated narration mid-sentence, and fixed-height cards overflowing
+  wrapped text into the next card). Run through that checklist before every
+  `queue/` move, not just after something looks wrong.
 
 ## Also apply on every build — creative direction (2026-08-29 onward)
 
