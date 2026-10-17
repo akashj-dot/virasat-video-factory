@@ -44,7 +44,7 @@ function generateClone(spoken, tmp, prefix) {
       console.error(
         `Windows voice-clone venv not found at ${WIN_VENV_PY}.\n` +
         `One-time setup: python -m venv .voice-clone-venv, activate it, then ` +
-        `pip install TTS torch torchaudio — see the team guide's Windows voice cloning section.`
+        `pip install torch torchaudio coqui-tts — see the team guide's Windows voice cloning section.`
       );
       process.exit(1);
     }

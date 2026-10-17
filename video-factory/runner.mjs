@@ -267,7 +267,10 @@ function startRenders() {
     job.renderOut = outAbs;
     const args = ["hyperframes@latest", "render", renderDir, ...(job.skill ? [`--skill=${job.skill}`] : []),
       ...job.renderArgs, "--output", outAbs];
-    const child = spawn("npx", args, { cwd: job.dir });
+    // Windows: npx is npx.cmd and needs a shell; paths contain spaces, so quote them.
+    const child = process.platform === "win32"
+      ? spawn("npx", args.map((a) => (/[\s"]/.test(a) ? `"${a.replace(/"/g, '\\"')}"` : a)), { cwd: job.dir, shell: true })
+      : spawn("npx", args, { cwd: job.dir });
     trackChild(job, child, (ok) => {
       renderCount--;
       if (ok) finishRender(job, outAbs);
