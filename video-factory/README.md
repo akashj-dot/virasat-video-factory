@@ -43,7 +43,9 @@ Lifecycle: Building → Queued → Rendering → Done.
 
 ## What a job is
 
-Any HyperFrames project folder in `queue/`. Optional `job.json`:
+Any HyperFrames project folder in `queue/`. **Always write a `job.json`** —
+it is not optional in practice, even though the runner will boot without
+one:
 
 ```json
 {
@@ -53,6 +55,15 @@ Any HyperFrames project folder in `queue/`. Optional `job.json`:
   "renderArgs": ["--quality", "high"]
 }
 ```
+
+Without it, the runner falls back to guessing `skill` and `voice` — the
+guess is wrong often enough that at least 6 videos shipped mislabeled or
+re-voiced unexpectedly before this was caught (2026-09-19). State `skill`
+and `voice` explicitly; don't rely on the fallback. See the root
+`CLAUDE.md`'s "Mandatory pre-render checklist" for this and three other
+build-blocking checks (caption wiring, audio-duration integrity, card
+layout overflow) that have each caused a shipped video to have real,
+user-visible defects.
 
 If the folder has `SCRIPT.md` + `STORYBOARD.md` + `audio_meta.json`, the factory runs local voice first, then renders.
 

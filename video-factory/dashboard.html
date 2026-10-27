@@ -18,11 +18,14 @@
   .stickytop { position: sticky; top: 0; z-index: 5; }
   header {
     background: rgba(15,17,21,.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line); padding: 16px 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--line); padding: 16px 24px;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; column-gap: 16px;
   }
-  h1 { font-size: 20px; font-weight: 800; margin: 0; letter-spacing: -.3px; }
-  h1 span { color: var(--accent); }
-  .stats { display: flex; gap: 18px; flex-wrap: wrap; margin-left: auto; }
+  .brand { grid-column: 2; justify-self: center; display: flex; align-items: center; gap: 10px; }
+  .rightgroup { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .brand .logo { height: 24px; width: auto; display: block; }
+  .brand .appname { font-size: 20px; font-weight: 800; margin: 0; letter-spacing: -.3px; color: var(--txt); }
+  .stats { display: flex; gap: 18px; flex-wrap: wrap; }
   .stat { display: flex; flex-direction: column; align-items: center; min-width: 54px; }
   .stat b { font-size: 20px; font-weight: 700; line-height: 1; }
   .stat small { color: var(--dim); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-top: 4px; }
@@ -35,10 +38,28 @@
   }
   button:hover { border-color: var(--accent); }
   button.pause.on { background: var(--voicing); color: #201700; border-color: var(--voicing); }
-  main { padding: 24px; max-width: 1100px; margin: 0 auto; }
-  .col-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--dim); margin: 22px 0 10px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--queued); border-radius: 12px; padding: 14px; }
+  main { padding: 20px 24px; }
+  .board { display: flex; gap: 16px; align-items: flex-start; }
+  .pane { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; display: flex; flex-direction: column; max-height: calc(100vh - 170px); min-width: 0; overflow: hidden; }
+  .pane-done { flex: 0 0 75%; max-width: 75%; }
+  .pane-others { flex: 1 1 25%; max-width: 25%; overflow-y: auto; }
+  .column-head { padding: 12px 14px; font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--dim); display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--line); flex: 0 0 auto; }
+  .column-head .dot-status { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .column-head .count { margin-left: auto; background: var(--panel2); padding: 2px 9px; border-radius: 20px; font-size: 11px; color: var(--txt); }
+  .column-body { padding: 10px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex: 1; }
+  .pane-done .column-body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; align-content: start; }
+  .pane-done .column-body > .card { min-width: 0; }
+  .mini-section { border-bottom: 1px solid var(--line); }
+  .mini-section:last-child { border-bottom: none; }
+  .mini-section .column-body { flex: none; overflow: visible; }
+  .column-empty { grid-column: 1 / -1; color: var(--dim); font-size: 12px; text-align: center; padding: 24px 10px; font-style: italic; }
+  .card { position: relative; background: var(--panel2); border: 1px solid var(--line); border-left: 3px solid var(--queued); border-radius: 12px; padding: 14px; }
+  .card.done .title { font-size: 18px; }
+  .card.done .top { padding-right: 92px; }
+  .card-del { position: absolute; top: 10px; right: 10px; display: flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; line-height: 1; border-radius: 7px; padding: 6px 10px 6px 8px; }
+  .card-del svg { width: 13px; height: 13px; flex: 0 0 auto; }
+  .card-del:hover { border-color: var(--failed); color: var(--failed); }
+  .card-del.confirm { background: var(--failed); color: #2a0d13; border-color: var(--failed); font-weight: 700; }
   .card.building { border-left-color: var(--building); }
   .card.voicing { border-left-color: var(--voicing); }
   .card.rendering { border-left-color: var(--rendering); }
@@ -55,13 +76,6 @@
   .fmt > i { border: 2px solid var(--accent); border-radius: 2px; display: block; }
   .age { color: var(--dim); font-size: 12px; }
   .pos { color: var(--accent); font-size: 12px; font-weight: 600; opacity: .8; }
-  .badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 3px 8px; border-radius: 20px; margin-left: auto; white-space: nowrap; }
-  .badge.building { background: rgba(155,140,255,.15); color: var(--building); }
-  .badge.queued { background: #2a2f3a; color: var(--queued); }
-  .badge.voicing { background: rgba(217,164,65,.15); color: var(--voicing); }
-  .badge.rendering { background: rgba(74,158,255,.15); color: var(--rendering); }
-  .badge.done { background: rgba(55,201,128,.15); color: var(--done); }
-  .badge.failed { background: rgba(240,87,107,.15); color: var(--failed); }
   .meta { color: var(--dim); font-size: 12px; margin-top: 8px; display: flex; gap: 12px; flex-wrap: wrap; }
   .spinner { width: 12px; height: 12px; border: 2px solid rgba(255,255,255,.2); border-top-color: currentColor; border-radius: 50%; display: inline-block; animation: spin 1s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -70,7 +84,18 @@
   .actions button { padding: 5px 12px; font-size: 12px; }
   .actions .danger:hover { border-color: var(--failed); }
   .actions .danger.confirm { background: var(--failed); color: #2a0d13; border-color: var(--failed); }
-  video { width: 100%; border-radius: 8px; margin-top: 10px; background: #000; max-height: 340px; }
+  .thumb-wrap { position: relative; margin-top: 10px; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; height: 190px; display: flex; align-items: center; justify-content: center; }
+  .thumb-wrap img { max-width: 100%; max-height: 100%; display: block; }
+  .thumb-wrap video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+  .thumb-wrap .playbtn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+  .thumb-wrap:hover .playbtn { background: rgba(0,0,0,.15); }
+  .playbtn i { width: 54px; height: 54px; border-radius: 50%; background: rgba(0,0,0,.6); border: 1px solid rgba(255,255,255,.25); display: flex; align-items: center; justify-content: center; }
+  .playbtn i::after { content: ""; border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent #fff; margin-left: 3px; }
+  .metarow { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .metatag { font-size: 11px; background: var(--panel); border: 1px solid var(--line); color: var(--dim); padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+  .metatag b { color: var(--txt); font-weight: 600; }
+  .fname { margin-top: 8px; font-size: 11.5px; color: var(--dim); cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fname:hover { color: var(--txt); }
   .empty { color: var(--dim); text-align: center; padding: 60px 20px; font-size: 15px; }
   .empty code { background: var(--panel2); padding: 3px 8px; border-radius: 6px; color: var(--accent); }
   .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--done); display: inline-block; }
@@ -95,20 +120,6 @@
   }
   .search:focus { outline: none; border-color: var(--accent); }
   .search::placeholder { color: var(--dim); }
-  .chipgroup { display: flex; gap: 6px; flex-wrap: wrap; }
-  .chip {
-    font-family: inherit; font-size: 12px; font-weight: 600; border: 1px solid var(--line);
-    background: var(--panel2); color: var(--dim); padding: 6px 12px; border-radius: 20px; cursor: pointer;
-  }
-  .chip:hover { color: var(--txt); }
-  .chip.on { color: var(--txt); border-color: var(--accent); background: rgba(108,140,255,.15); }
-  .sep { width: 1px; height: 20px; background: var(--line); }
-  select.sort {
-    font-family: inherit; font-size: 12px; font-weight: 600; color: var(--txt); background: var(--panel2);
-    border: 1px solid var(--line); border-radius: 9px; padding: 7px 10px; cursor: pointer;
-  }
-  .clearfilt { font-size: 12px; color: var(--accent); background: none; border: none; padding: 4px 6px; cursor: pointer; font-weight: 600; }
-  .clearfilt:hover { text-decoration: underline; }
   .shown { color: var(--dim); font-size: 12px; margin-left: auto; white-space: nowrap; }
 </style>
 </head>
@@ -117,24 +128,20 @@
 <div id="paused" class="banner pausedbanner">⏸ PAUSED — nothing is being generated right now. Press <b>Resume</b> (top-right) to start processing.</div>
 <div class="stickytop">
 <header>
-  <h1>Virasat Video <span>Factory</span></h1>
-  <div class="stats" id="stats"></div>
-  <div class="eta" id="eta"></div>
-  <button class="pause" id="pauseBtn" onclick="togglePause()">Pause</button>
-  <span id="conn" title="connection"><span class="dot"></span></span>
+  <div></div>
+  <div class="brand">
+    <img class="logo" src="/brand/logo/virasat-logo-full-trimmed.png" alt="Virasat" />
+    <span class="appname">Video Factory</span>
+  </div>
+  <div class="rightgroup">
+    <div class="stats" id="stats"></div>
+    <div class="eta" id="eta"></div>
+    <button class="pause" id="pauseBtn" onclick="togglePause()">Pause</button>
+    <span id="conn" title="connection"><span class="dot"></span></span>
+  </div>
 </header>
 <div class="toolbar">
-  <input class="search" id="search" type="text" placeholder="Search title or brief…" oninput="onFilterChange()" />
-  <div class="chipgroup" id="statusChips"></div>
-  <div class="sep"></div>
-  <div class="chipgroup" id="formatChips"></div>
-  <div class="sep"></div>
-  <select class="sort" id="sortSel" onchange="onFilterChange()">
-    <option value="newest">Done: Newest first</option>
-    <option value="oldest">Done: Oldest first</option>
-    <option value="duration">Done: Longest render</option>
-  </select>
-  <button class="clearfilt" id="clearBtn" onclick="clearFilters()" style="display:none">Clear filters</button>
+  <input class="search" id="search" type="text" placeholder="Search title…" oninput="onFilterChange()" />
   <span class="shown" id="shown"></span>
 </div>
 </div>
@@ -147,42 +154,14 @@ let paused = false;
 let lastManifest = null;
 let lastSig = "";
 const expanded = new Set();
-const order = ["building", "rendering", "voicing", "queued", "failed", "done"];
+const playing = new Set(); // done-card ids currently showing the real <video> instead of a poster
+const order = ["done", "building", "rendering", "voicing", "queued", "failed"];
 const labels = { building: "Building", rendering: "Rendering", voicing: "Voicing", queued: "Queued", failed: "Failed", done: "Done" };
 
-// ---- filters (search / status / format / sort) ----
-const activeStatuses = new Set(order); // all on by default
-let activeFormat = "all"; // "all" | "9:16" | "16:9"
+// ---- search (title only) ----
 let searchQuery = "";
-let sortMode = "newest";
-
-function renderChips() {
-  document.getElementById("statusChips").innerHTML = order.map(s =>
-    `<button class="chip${activeStatuses.has(s) ? " on" : ""}" onclick="toggleStatus('${s}')">${labels[s]}</button>`
-  ).join("");
-  document.getElementById("formatChips").innerHTML = ["all", "9:16", "16:9"].map(f =>
-    `<button class="chip${activeFormat === f ? " on" : ""}" onclick="setFormat('${f}')">${f === "all" ? "All formats" : f}</button>`
-  ).join("");
-}
-function toggleStatus(s) {
-  activeStatuses.has(s) ? activeStatuses.delete(s) : activeStatuses.add(s);
-  if (activeStatuses.size === 0) order.forEach(x => activeStatuses.add(x)); // never let it go fully empty
-  onFilterChange();
-}
-function setFormat(f) { activeFormat = f; onFilterChange(); }
-function clearFilters() {
-  order.forEach(s => activeStatuses.add(s));
-  activeFormat = "all"; searchQuery = ""; sortMode = "newest";
-  document.getElementById("search").value = "";
-  document.getElementById("sortSel").value = "newest";
-  onFilterChange();
-}
-function filtersActive() {
-  return activeStatuses.size !== order.length || activeFormat !== "all" || searchQuery.trim() !== "";
-}
 function onFilterChange() {
   searchQuery = document.getElementById("search").value;
-  sortMode = document.getElementById("sortSel").value;
   lastSig = ""; // force a rebuild even though the manifest itself hasn't changed
   if (lastManifest) render(lastManifest);
 }
@@ -202,19 +181,53 @@ async function poll() {
   render(m);
 }
 
+// Pull the fields worth showing as badges out of a job's BRIEF.md text (frontmatter + body).
+const skillLabels = { "faceless-explainer": "Faceless Explainer", "product-launch-video": "Product Launch", "general-video": "General Video", "motion-graphics": "Motion Graphics", "slideshow": "Slideshow" };
+function parseBrief(brief) {
+  if (!brief) return {};
+  const fm = brief.match(/^---\n([\s\S]*?)\n---/);
+  const get = (k) => {
+    if (!fm) return null;
+    const m = fm[1].match(new RegExp(`^${k}:\\s*"?([^"\\n]+?)"?\\s*$`, "m"));
+    return m ? m[1].trim() : null;
+  };
+  const themeM = brief.match(/theme:\s*(light|dark)/i);
+  const angle = get("angle");
+  return {
+    language: get("language"),
+    angle: angle ? angle.split(" (")[0] : null,
+    style: get("style_preset"),
+    theme: themeM ? themeM[1][0].toUpperCase() + themeM[1].slice(1).toLowerCase() : null,
+    voice: get("voice"),
+    destination: get("destination"),
+    length: get("length"),
+  };
+}
+function metaTags(j) {
+  const b = parseBrief(j.brief);
+  const tags = [];
+  const skill = skillLabels[j.skill] || j.skill;
+  if (skill) tags.push(`<span class="metatag">Skill: <b>${escapeHtml(skill)}</b></span>`);
+  if (b.theme) tags.push(`<span class="metatag">Theme: <b>${escapeHtml(b.theme)}</b></span>`);
+  if (b.language) tags.push(`<span class="metatag">Lang: <b>${escapeHtml(b.language.toUpperCase())}</b></span>`);
+  if (b.angle) tags.push(`<span class="metatag">Tone: <b>${escapeHtml(b.angle)}</b></span>`);
+  if (b.style) tags.push(`<span class="metatag">Style: <b>${escapeHtml(b.style)}</b></span>`);
+  if (b.voice) tags.push(`<span class="metatag">Voice: <b>${escapeHtml(b.voice)}</b></span>`);
+  if (b.destination) tags.push(`<span class="metatag">Dest: <b>${escapeHtml(b.destination)}</b></span>`);
+  if (b.length) tags.push(`<span class="metatag">Length: <b>${escapeHtml(b.length)}</b></span>`);
+  return tags.length ? `<div class="metarow">${tags.join("")}</div>` : "";
+}
+
 function matchesSearch(j, q) {
   if (!q) return true;
-  q = q.toLowerCase();
-  return String(j.title || "").toLowerCase().includes(q) || String(j.brief || "").toLowerCase().includes(q) || String(j.id || "").toLowerCase().includes(q);
+  return String(j.title || "").toLowerCase().includes(q.toLowerCase());
 }
 
 function render(m) {
   lastManifest = m;
-  renderChips();
   // ONE change-signature covering everything visible. If nothing changed, touch NOTHING —
   // no header rewrite, no grid rebuild — so the page never flashes and videos keep playing.
-  const filterSig = [...activeStatuses].sort().join(",") + "||" + activeFormat + "||" + searchQuery + "||" + sortMode;
-  const sig = m.paused + "||" + m.jobs.map(j => j.id + ":" + j.status).join("|") + "||" + [...expanded].sort().join(",") + "||" + filterSig;
+  const sig = m.paused + "||" + m.jobs.map(j => j.id + ":" + j.status).join("|") + "||" + [...expanded].sort().join(",") + "||" + [...playing].sort().join(",") + "||" + searchQuery;
   if (sig === lastSig) return;
   lastSig = sig;
 
@@ -255,45 +268,53 @@ function render(m) {
     document.getElementById("main").innerHTML =
       `<div class="empty">No jobs yet.<br><br>Tell Claude a video idea — it'll appear here as <b>Building</b> instantly.</div>`;
     document.getElementById("shown").textContent = "";
-    document.getElementById("clearBtn").style.display = "none";
     return;
   }
 
-  document.getElementById("clearBtn").style.display = filtersActive() ? "" : "none";
-
-  const filtered = m.jobs.filter(j =>
-    activeStatuses.has(j.status) &&
-    (activeFormat === "all" || j.format === activeFormat) &&
-    matchesSearch(j, searchQuery)
-  );
-  document.getElementById("shown").textContent = filtersActive() ? `${filtered.length} of ${m.jobs.length} shown` : "";
+  const filtered = m.jobs.filter(j => matchesSearch(j, searchQuery));
+  document.getElementById("shown").textContent = searchQuery.trim() ? `${filtered.length} of ${m.jobs.length} shown` : "";
 
   if (!filtered.length) {
-    document.getElementById("main").innerHTML =
-      `<div class="empty">No videos match your filters.<br><br><button class="clearfilt" onclick="clearFilters()" style="font-size:14px">Clear filters</button></div>`;
+    document.getElementById("main").innerHTML = `<div class="empty">No videos match "${escapeHtml(searchQuery)}".</div>`;
     return;
   }
 
   const byStatus = {};
   for (const j of filtered) (byStatus[j.status] = byStatus[j.status] || []).push(j);
 
-  // Sort only applies to the Done column — other columns already reflect live pipeline order.
-  if (byStatus.done) {
-    const dir = { newest: 1, oldest: -1 }[sortMode];
-    if (sortMode === "duration") byStatus.done.sort((a, b) => (b.renderSeconds || 0) - (a.renderSeconds || 0));
-    else byStatus.done.sort((a, b) => dir * ((b.finishedAt || 0) - (a.finishedAt || 0)));
-  }
+  // Done column: newest-finished first.
+  if (byStatus.done) byStatus.done.sort((a, b) => (b.finishedAt || 0) - (a.finishedAt || 0));
 
   const now = m.updatedAt;
-  let html = "";
+  const doneList = byStatus.done || [];
+  let html = '<div class="board">';
+  html += `<div class="pane pane-done">
+    <div class="column-head"><span class="dot-status" style="background:var(--done)"></span>${labels.done}<span class="count">${doneList.length}</span></div>
+    <div class="column-body">${doneList.length ? doneList.map(j => card(j, now)).join("") : '<div class="column-empty">Nothing here</div>'}</div>
+  </div>`;
+  html += '<div class="pane pane-others">';
   for (const s of order) {
-    const list = byStatus[s];
-    if (!list || !list.length) continue;
-    html += `<div class="col-title">${labels[s]} · ${list.length}</div><div class="grid">`;
-    html += list.map(j => card(j, now)).join("");
-    html += `</div>`;
+    if (s === "done") continue;
+    const list = byStatus[s] || [];
+    html += `<div class="mini-section">
+      <div class="column-head"><span class="dot-status" style="background:var(--${s})"></span>${labels[s]}<span class="count">${list.length}</span></div>
+      <div class="column-body">${list.length ? list.map(j => card(j, now)).join("") : '<div class="column-empty">Nothing here</div>'}</div>
+    </div>`;
   }
+  html += "</div></div>";
+
+  // Rebuilding #main wipes DOM scroll state — save each pane's scroll position first,
+  // then restore after, so an action deep in the Done grid (play, delete, read-more)
+  // doesn't yank the view back to the top.
+  const prevDoneScroll = document.querySelector(".pane-done .column-body")?.scrollTop || 0;
+  const prevOthersScroll = document.querySelector(".pane-others")?.scrollTop || 0;
+
   document.getElementById("main").innerHTML = html;
+
+  const doneBody = document.querySelector(".pane-done .column-body");
+  if (doneBody) doneBody.scrollTop = prevDoneScroll;
+  const othersPane = document.querySelector(".pane-others");
+  if (othersPane) othersPane.scrollTop = prevOthersScroll;
 }
 
 function card(j, now) {
@@ -309,31 +330,36 @@ function card(j, now) {
   if (s === "voicing") meta = `<span class="spinner"></span> generating voice`;
   if (s === "rendering") meta = `<span class="spinner"></span> <span class="rtime" data-start="${j.renderStartedAt || now}">rendering · ${fmt((now - (j.renderStartedAt || now)) / 1000)}</span>`;
   if (s === "queued") meta = `waiting${j.needsVoice ? " · needs voice" : ""}`;
+  let deleteBtn = "";
   if (s === "done") {
-    meta = `✓ rendered in ${j.renderSeconds != null ? fmt(j.renderSeconds) : "—"} · → ready-to-post`;
-    body = `<video controls preload="none" poster="/thumbs/${j.id}.jpg" src="/output/${j.id}.mp4"></video>
-      <div class="fname" title="in ~/Desktop/ready-to-post/ — click to copy" onclick="copyName('${j.id}.mp4')">📄 ${j.id}.mp4</div>`;
+    const jid = escapeHtml(j.id);
+    body = playing.has(j.id)
+      ? `<div class="thumb-wrap"><video controls autoplay src="/output/${jid}.mp4"></video></div>`
+      : `<div class="thumb-wrap" onclick="togglePlay('${jid}')"><img src="/thumbs/${jid}.jpg" alt="" /><div class="playbtn"><i></i></div></div>`;
+    body += metaTags(j);
+    body += `<div class="fname" title="in ~/Desktop/ready-to-post/ — click to copy" onclick="copyName('${j.id}.mp4')">📄 ${j.id}.mp4</div>`;
+    deleteBtn = `<button class="card-del" title="Delete" onclick="del('${j.id}',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>Delete</button>`;
   }
   if (s === "failed") body = `<div class="err">${escapeHtml(j.error || "unknown error")}</div>`;
 
-  // description with read-more
+  // description with read-more — for done cards this sits at the very bottom, after the video/meta.
   let briefBlock = "";
   if (j.brief) {
     const open = expanded.has(j.id);
     briefBlock = `<div class="brief${open ? " open" : ""}">${briefHtml(j.brief)}</div>
       <button class="more" onclick="toggleBrief('${j.id}')">${open ? "Show less ▲" : "Read more ▼"}</button>`;
   }
-  // cancel while in progress; retry when failed
+  // cancel while in progress; retry when failed; done's delete lives top-right instead
   let actions = "";
   if (s === "failed") actions = `<button onclick="act('retry','${j.id}',this)">Retry</button><button class="danger" onclick="del('${j.id}',this)">Delete</button>`;
   else if (["building", "queued", "voicing", "rendering"].includes(s)) actions = `<button class="danger" onclick="act('cancel','${j.id}',this)">Cancel</button>`;
-  else if (s === "done") actions = `<button class="danger" onclick="del('${j.id}',this)">Delete</button>`;
 
+  const metaLine = meta ? `<div class="meta"><span>${meta}</span>${tag}</div>` : "";
   return `<div class="card ${s}">
-    <div class="top">${fmtIcon(j.format)}<span class="title">${escapeHtml(cleanTitle(j.title))}</span><span class="badge ${s}">${s}</span></div>
-    <div class="meta"><span>${meta}</span>${tag}</div>
-    ${briefBlock}
-    ${body}
+    ${deleteBtn}
+    <div class="top">${fmtIcon(j.format)}<span class="title">${escapeHtml(cleanTitle(j.title))}</span></div>
+    ${metaLine}
+    ${s === "done" ? `${body}${briefBlock}` : `${briefBlock}${body}`}
     ${actions ? `<div class="actions">${actions}</div>` : ""}
   </div>`;
 }
@@ -347,6 +373,7 @@ function fmtIcon(f) {
 }
 function cleanTitle(t) { return String(t).replace(/\s*[\(（]?(?:16:9|9:16)[^)）]*[\)）]?\s*$/i, "").trim() || t; }
 function toggleBrief(id) { expanded.has(id) ? expanded.delete(id) : expanded.add(id); if (lastManifest) render(lastManifest); }
+function togglePlay(id) { playing.add(id); lastSig = ""; if (lastManifest) render(lastManifest); }
 function copyName(name) { navigator.clipboard?.writeText(name); const el = event.target; const t = el.textContent; el.textContent = "📄 copied!"; setTimeout(() => el.textContent = t, 1000); }
 
 // Tick elapsed timers in place — never rebuilds the DOM, so a playing video survives.

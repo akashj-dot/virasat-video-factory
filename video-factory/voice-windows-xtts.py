@@ -21,7 +21,7 @@ def main():
     except ImportError:
         sys.stderr.write(
             "Coqui TTS is not installed in this venv.\n"
-            "Run: pip install TTS torch torchaudio\n"
+            "Run: pip install torch torchaudio coqui-tts\n"
             "(see the team guide's Windows voice cloning section)\n"
         )
         sys.exit(1)
