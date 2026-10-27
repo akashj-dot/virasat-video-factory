@@ -80,7 +80,7 @@ export default {
 
 ### Stage and cues
 
-Stage is `s.stage.w x s.stage.h` (9:16: 960 x 940, kept clear of Instagram's header, bottom UI and buttons). Positions are px inside it.
+Stage is `s.stage.w x s.stage.h` (9:16: 960 x 950, kept clear of Instagram's header, bottom UI and buttons). Positions are px inside it.
 
 Cue spec: `"nominee"` (first match in scene), `"nominee#2"`, `"nominee.end"`, `"L3"`,
 `"L3.end"`, `"L3:paisa"`, seconds as a number, or `[cue, offset]`.

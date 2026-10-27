@@ -49,7 +49,7 @@ export const THEMES = {
 export const FORMATS = {
   // 9:16 keeps clear of Instagram Reels UI: header covers ~top 220px, username/caption/audio
   // ~bottom 400px, action buttons the right edge. Logo sits at y 220 (add-logo-overlay.mjs).
-  "9:16": { W: 1080, H: 1920, chrome: { y: 310, h: 64 }, stage: { x: 60, y: 400, w: 960, h: 940 }, captions: { y: 1345, h: 170, side: 140 } },
+  "9:16": { W: 1080, H: 1920, chrome: { y: 345, h: 64 }, stage: { x: 60, y: 460, w: 960, h: 950 }, captions: { y: 1435, h: 155, side: 140 } },
   "4:5": { W: 1080, H: 1350, chrome: { y: 130, h: 56 }, stage: { x: 60, y: 210, w: 960, h: 800 }, captions: { y: 1040, h: 200 } },
   "1:1": { W: 1080, H: 1080, chrome: { y: 120, h: 52 }, stage: { x: 60, y: 190, w: 960, h: 640 }, captions: { y: 860, h: 170 } },
   "16:9": { W: 1920, H: 1080, chrome: { y: 40, h: 52 }, stage: { x: 100, y: 120, w: 1720, h: 700 }, captions: { y: 860, h: 170 } },
