@@ -122,6 +122,7 @@ function authoringActive(dir) {
 // it. Falls back to the old STORYBOARD.md heuristic only for legacy projects with neither.
 function detectSkill(cfg, brief) {
   if (cfg.skill) return cfg.skill;
+  if (cfg.v2) return null; // v2 projects are plain compositions; "workflow: virasat-v2" is not a render skill
   const m = brief && brief.match(/^workflow:\s*(\S+)/m);
   if (m) return m[1];
   return null;

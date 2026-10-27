@@ -43,6 +43,13 @@ builds must also run `finalize-brand.mjs` after the frame build and copy
 
 ## Mandatory pre-render checklist — do not skip (2026-09-19 onward)
 
+Applies to hand-built (v1 / HyperFrames-workflow) projects. v2 projects meet
+all four automatically: `v2/new.mjs` writes `job.json`, `v2/build.mjs` wires
+the captions overlay into `index.html` and derives every clip and audio timing
+from the real voice files (`timings.json`), and kit cards size to their
+content. For v2, the `/virasat-video` self-review gate (`hyperframes check` +
+snapshots) is the equivalent check.
+
 Four separate bugs shipped across multiple videos before being caught and
 fixed by hand. All four are now checked automatically or documented here —
 verify each one explicitly before moving a project to `video-factory/queue/`:
