@@ -11,7 +11,9 @@
     "account": "अकाउंट",
     "claim": "क्लेम",
     "bank": "बैंक",
-    "lakh": "लाख"
+    "lakh": "लाख",
+    "percent": "परसेंट",
+    "commission": "कमी-शन"
   },
   "_note": "Tested spellings for the Hindi voice (tune-lexicon.mjs, 2026-10-25, ref voice-sample-hinglish). 'bank' set by hand: Latin 'bank' is heard as baank."
 }

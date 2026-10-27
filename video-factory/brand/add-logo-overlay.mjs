@@ -127,6 +127,10 @@ for (const file of frameFiles) {
   const logoHeightPx = Math.round(width * (mark === "icon" ? 0.13 : 0.065));
   const logoWidthPx = Math.round(logoHeightPx * LOGO_ASPECT_W_OVER_H);
   const marginPx = Math.round(width * 0.03);
+  // Tall (9:16) canvases are Reels/Shorts: the app header covers the top ~11%,
+  // so the logo drops below it (y 220 on 1920). Other formats keep the corner.
+  const height = Number(rootTagMatch?.[0]?.match(/data-height="(\d+(?:\.\d+)?)"/)?.[1] ?? 1920);
+  const topPx = height / width >= 1.7 ? Math.round(height * 0.115) : marginPx;
 
   // Plain #root selector only — a compound selector like
   // `#root[data-composition-id]` silently fails to match in the assembled
@@ -139,7 +143,7 @@ for (const file of frameFiles) {
     `    #root::after {\n` +
     `      content: "";\n` +
     `      position: absolute;\n` +
-    `      top: ${marginPx}px;\n` +
+    `      top: ${topPx}px;\n` +
     `      right: ${marginPx}px;\n` +
     `      width: ${logoWidthPx}px;\n` +
     `      height: ${logoHeightPx}px;\n` +

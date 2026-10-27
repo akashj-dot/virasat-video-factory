@@ -82,7 +82,7 @@ This is where quality is decided. Hold every scene to these:
 6. **Progress strip**: `steps` of 3-5 labels, at most 9 characters each for
    9:16 (`Claim`, `Documents`, `Court`, `Fix`); every scene sets `step`.
 7. Design for the stage of the chosen format (`s.stage.w x s.stage.h`):
-   9:16 is 960x1080, 4:5 is 960x800, 1:1 is 960x640, 16:9 is 1720x700. The
+   9:16 is 960x940 (kept clear of Instagram's UI), 4:5 is 960x800, 1:1 is 960x640, 16:9 is 1720x700. The
    builder auto-centres and enlarges a scene that fits, but it must shrink one
    that overflows, which pushes labels under the 28px phone floor. So on the
    shorter formats use fewer elements per scene (2-3 rows, not 4) and on 16:9

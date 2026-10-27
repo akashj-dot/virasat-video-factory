@@ -187,7 +187,7 @@ ${isLast ? "" : `    tl.to("#${P}cam",{opacity:0,duration:0.22,ease:"power1.in"}
 }
 
 // ---------- captions overlay (karaoke, Roman script, keywords in accent) ----------
-const capMaxWords = format === "16:9" ? 8 : 5, capMaxChars = format === "16:9" ? 48 : 32;
+const capMaxWords = format === "16:9" ? 8 : 5, capMaxChars = format === "16:9" ? 48 : format === "9:16" ? 28 : 32;
 const groups = [];
 for (const L of lines) {
   let cur = [];
@@ -212,7 +212,7 @@ const capHtml = `<template>
   <style>
 ${fontFaces}
     #caproot{position:absolute;inset:0;pointer-events:none;${vars}}
-    .cpg{visibility:hidden;position:absolute;left:${r3(F.W * 0.06)}px;right:${r3(F.W * 0.06)}px;top:${F.captions.y}px;height:${F.captions.h}px;display:flex;align-items:center;justify-content:center;text-align:center;opacity:0;
+    .cpg{visibility:hidden;position:absolute;left:${F.captions.side ?? r3(F.W * 0.06)}px;right:${F.captions.side ?? r3(F.W * 0.06)}px;top:${F.captions.y}px;height:${F.captions.h}px;display:flex;align-items:center;justify-content:center;text-align:center;opacity:0;
       font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:${capFont}px;line-height:1.18;letter-spacing:-0.01em;color:var(--text);text-shadow:0 ${r3(3 * u)}px ${r3(22 * u)}px ${T.bg}}
     .cpg span{opacity:0.36} .cpg span.ck{color:var(--primary)}
   </style>
