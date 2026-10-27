@@ -11,7 +11,7 @@ import fs from "node:fs";
 import path from "node:path";
 import http from "node:http";
 import os from "node:os";
-import { spawn } from "node:child_process";
+import { spawn, execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 // ---------- config (the only knobs) ----------
@@ -270,6 +270,8 @@ function startRenders() {
 function finishRender(job, mp4) {
   try {
     if (!fs.existsSync(mp4)) return fail(job, "render reported success but MP4 missing");
+    // v2 jobs: master the final mix to -14 LUFS (v2 renders land ~5 dB under v1 otherwise)
+    if (readJobConfig(job.dir).v2) execFileSync("node", [path.join(ROOT, "v2", "master.mjs"), mp4], { stdio: "ignore" });
     const dest = path.join(DIR.output, `${job.id}.mp4`);
     fs.copyFileSync(mp4, dest);
     fs.copyFileSync(mp4, path.join(READY_TO_POST, `${job.id}.mp4`));

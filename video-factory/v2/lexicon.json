@@ -1,0 +1,17 @@
+{
+  "hi": {
+    "nominee": "नॉमिनी",
+    "column": "कॉलम",
+    "rbi": "आर-बी-आई",
+    "fund": "फ़ंड",
+    "simple": "सिंपल",
+    "add": "ऐड",
+    "certificate": "सर्टिफ़िकेट",
+    "court": "कोर्ट",
+    "account": "अकाउंट",
+    "claim": "क्लेम",
+    "bank": "बैंक",
+    "lakh": "लाख"
+  },
+  "_note": "Tested spellings for the Hindi voice (tune-lexicon.mjs, 2026-10-25, ref voice-sample-hinglish). 'bank' set by hand: Latin 'bank' is heard as baank."
+}

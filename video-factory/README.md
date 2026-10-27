@@ -26,12 +26,20 @@ Dashboard opens at http://localhost:4300/dashboard.html. Leave the Terminal open
 
 ## How to run the factory
 
-1. **Start** the factory (`./start.command`).
-2. **In any Claude Code terminal**, tell Claude your video ideas ("make a reel about X", batch of 10, whatever). Claude should run through `brand/starter-questions.md`'s brief questions first, every time.
-3. Claude captures each idea as `building/<slug>/` (shows as **Building** on the dashboard instantly), builds the HyperFrames project, then moves it to `queue/`.
-4. The factory **voices + renders** 3 at a time. Finished MP4s land in `output/` and `~/Desktop/ready-to-post/`.
+1. **Start** the factory (`./start.command`, or `../start-factory.sh` from the repo root).
+2. **In Claude Code**, type `/virasat-video <topic>` (or just ask for a video). It asks only
+   four things: topic, theme (dark/light), language (Hinglish/Hindi/English) and format
+   (9:16 / 4:5 / 1:1 / 16:9). Several topics at once = a batch.
+3. Claude then researches, scripts, voices (your cloned voice, checked word by word),
+   storyboards, builds and self-reviews the video in `building/<slug>/` (shows as
+   **Building** on the dashboard), and moves it to `queue/`.
+4. The factory renders 3 at a time and masters the audio. Finished MP4s land in `output/`
+   and `~/Desktop/ready-to-post/`.
 
-Lifecycle: Building → Queued → Voicing → Rendering → Done.
+How v2 works: `v2/AUTHORING.md`. The older 7-question v1 flow (`brand/starter-questions.md`,
+`/faceless-explainer`) is legacy, kept for re-editing old projects.
+
+Lifecycle: Building → Queued → Rendering → Done.
 
 ## What a job is
 
